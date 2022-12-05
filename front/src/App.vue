@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import HeaderTest from "./components/HeaderTest.vue";
+import HeaderTest from "./components/Header.vue";
 import HelloWorld from "./components/HelloWorld";
 
 export default {
