@@ -1,23 +1,38 @@
 <template>
   <v-app>
-    <header-test />
-
+    <header-teixa />
     <v-main>
-      <HelloWorld />
+      <personal-info />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </v-main>
+    <footer-teixa />
   </v-app>
 </template>
 
 <script>
-import HeaderTest from "./components/Header.vue";
-import HelloWorld from "./components/HelloWorld";
-
+import HeaderTeixa from "./components/Header.vue";
+import FooterTeixa from "./components/Footer.vue";
+import PersonalInfo from "./components/PersonalInfo.vue";
 export default {
   name: "App",
 
   components: {
-    HelloWorld,
-    HeaderTest,
+    HeaderTeixa,
+    FooterTeixa,
+    PersonalInfo,
   },
 
   data: () => ({
