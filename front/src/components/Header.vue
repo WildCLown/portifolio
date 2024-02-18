@@ -1,22 +1,23 @@
 <template>
-  <v-app-bar app color="primary" dark>
-    <v-layout row wrap class="d-flex align-center">
-      <v-flex pl-5 lg5 xs11>
+    <v-layout row wrap class="align-center" >
+      <v-flex lg5 xs11>
         <v-layout row wrap class="align-center">
-          <v-img
-            alt="Vuetify Logo"
-            class="shrink mr-2 d-inline-block"
-            contain
-            :src="require('../assets/icons/GT.png')"
-            width="60"
-          />
-          <label class="primaryText--text text-h4 font-weight-light">
+          <v-flex lg1 xs2 class="align-center">
+            <v-img
+              class="mr-2"
+              contain
+              :src="require('@/assets/icons/GT.png')"
+            />
+          </v-flex>
+          <v-flex xs10>
+            <label class="primaryText--text text-h4 font-weight-light">
             {{
               this.$vuetify.breakpoint.lgAndUp
                 ? "Gabriel Teixeira's Portifolio"
                 : "Portifolio"
             }}
           </label>
+          </v-flex>
         </v-layout>
       </v-flex>
       <v-flex lg7 v-if="this.$vuetify.breakpoint.lgAndUp">
@@ -48,8 +49,10 @@
           </v-flex>
         </v-layout>
       </v-flex>
+      <v-flex v-else xs1>
+        B
+      </v-flex>
     </v-layout>
-  </v-app-bar>
 </template>
 
 <script>
@@ -68,6 +71,14 @@ export default {
         document.body.scrollHeight || document.documentElement.scrollHeight
       );
     },
+    openBurguer() {
+      
+    }
   },
 };
 </script>
+<style scoped>
+  .v-btn--is-elevated {
+    box-shadow: none;
+  }
+</style>

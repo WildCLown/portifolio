@@ -6,7 +6,7 @@
         xs5
       >
         <v-layout row wrap class="d-flex justify-space-between">
-          <v-flex xs3 v-for="(social, idx) in socials" :key="idx">
+          <v-flex xs12 md3 v-for="(social, idx) in socials" :key="idx" class="pa-ma-4">
             <footer-images :objectName="social" />
           </v-flex>
         </v-layout>
@@ -26,16 +26,16 @@ export default {
     return {
       socials: [
         {
-          link: "Insta",
-          imageSrc: "",
+          source: "Linkedin",
+          link: "https://www.linkedin.com/in/gabrielteixeirasoares/"
         },
         {
-          link: "GitHub",
-          imageSrc: "",
+          source: "GitHub",
+          link: "https://github.com/WildCLown"
         },
         {
-          link: "Twitch",
-          imageSrc: "",
+          source: "Twitch",
+          link: "https://twitch.tv/wildclownbr"
         },
       ],
     };

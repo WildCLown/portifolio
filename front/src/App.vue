@@ -1,23 +1,13 @@
 <template>
   <v-app>
-    <header-teixa />
-    <v-main>
-      <personal-info />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-    </v-main>
+    <v-app-bar app color="primary" dark >
+      <header-teixa/>
+    </v-app-bar>
+    <v-layout row wrap class="mt-12">
+      <v-flex xs12>
+        <personal-info />
+      </v-flex>
+    </v-layout>
     <footer-teixa />
   </v-app>
 </template>

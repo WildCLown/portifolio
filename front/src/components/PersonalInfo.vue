@@ -1,8 +1,10 @@
 <template>
-  <v-layout mt-4>
-    <v-flex xs4> </v-flex>
+  <v-layout ma-8>
+    <v-flex lg2 pr-2>
+      <image-area class="justify-end"/>
+    </v-flex>
     <v-flex
-      xs7
+      lg10
       class="
         text-center
         blackText--text
@@ -10,29 +12,42 @@
         rounded-lg rounded-l-0
         pa-5
         border
+        module-border-wrap
       "
     >
+    <div class="module" ref="informationFormated">
       <span>
         {{ informationText }}
       </span>
+    </div>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
+import ImageArea from "@/components/personal-info/ImageArea.vue";
 export default {
   name: "PersonalInfo",
+  components: {
+    ImageArea,
+  },
   data() {
     return {
       informationText:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "Heya Full Stack software engineer",
     };
   },
 };
 </script>
 <style scoped>
-.border {
-  background-color: var(--v-primary-base);
-  border: 6px solid var(--v-theme-blackText) !important;
+.module-border-wrap {
+  position: relative;
+  background: linear-gradient(to left, #a01620, #041350);
+  border-radius: 10px 30px;
+}
+.module {
+  background: #222;
+  color: white;
+  padding: 2rem;
 }
 </style>
