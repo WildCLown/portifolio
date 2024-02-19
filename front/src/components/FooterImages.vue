@@ -1,6 +1,6 @@
 <template>
-  <v-layout row wrap class="ma5 clickable" v-on:click="redirectPage(objectName['link'])">
-    <v-flex xs4 class="px-2 my-2">
+  <v-layout row wrap class="ma5 clickable" v-on:click="redirectPage(objectName['link'])" v-on:mouseover="isHovered = true" v-on:mouseleave="isHovered = false">
+    <v-flex xs4 :class="imageClass">
       <v-img
         :src="images[objectName['source']]"
       />
@@ -24,6 +24,7 @@ export default {
   name: "FooterImage",
   data() {
     return {
+      isHovered: false,
       images: {
         "Insta" : instagram,
         "GitHub": github,
@@ -31,6 +32,11 @@ export default {
         "Linkedin": linkedin
       }
     };
+  },
+  computed: {
+    imageClass: function() {
+      return this.isHovered? "px-1 my-1" : "px-2 my-2"
+    }
   },
   methods: {
     redirectPage(link){
@@ -46,7 +52,7 @@ export default {
           link: "pow"
           };
       },
-    },
+    }
   },
 };
 </script>

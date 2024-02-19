@@ -6,6 +6,7 @@
             <v-img
               class="mr-2"
               contain
+              style="width: 80%"
               :src="require('@/assets/icons/GT.png')"
             />
           </v-flex>
@@ -28,6 +29,8 @@
                 Home
               </label>
             </v-btn>
+          </v-flex>
+          <v-flex>
             <v-btn
               color="primary"
               large
@@ -38,6 +41,8 @@
                 Resume
               </label>
             </v-btn>
+          </v-flex>
+          <v-flex>
             <v-btn color="primary" large>
               <label
                 class="primaryText--text text-h4 font-weight-light"
@@ -46,6 +51,9 @@
                 Contact me
               </label>
             </v-btn>
+          </v-flex>
+          <v-flex>
+            <projects-router color="primary" large d-flex/>
           </v-flex>
         </v-layout>
       </v-flex>
@@ -56,8 +64,12 @@
 </template>
 
 <script>
+import ProjectsRouter from "@/components/ProjectsRouter.vue";
 export default {
   name: "HeaderTeixa",
+  components: {
+    ProjectsRouter
+  },
   data() {
     return {
       resumeLink:
