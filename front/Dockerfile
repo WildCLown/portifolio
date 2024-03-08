@@ -1,4 +1,4 @@
-FROM node:12-stretch
+FROM node:16-stretch
 
 RUN apt-get update && apt-get install -y curl apt-transport-https && \
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \

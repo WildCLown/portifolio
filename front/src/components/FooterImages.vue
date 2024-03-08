@@ -1,5 +1,12 @@
 <template>
-  <v-layout row wrap class="ma5 clickable" v-on:click="redirectPage(objectName['link'])" v-on:mouseover="isHovered = true" v-on:mouseleave="isHovered = false">
+  <v-layout 
+    row 
+    wrap 
+    class="ma5 clickable" 
+    v-on:click="redirectPage(objectName['link'])" 
+    v-on:mouseover="isHovered = true" 
+    v-on:mouseleave="isHovered = false"
+  >
     <v-flex xs4 :class="imageClass">
       <v-img
         :src="images[objectName['source']]"
@@ -57,7 +64,7 @@ export default {
 };
 </script>
 <style scoped>
-.clickable{
-  cursor: pointer;
-}
+  .clickable{
+    cursor: pointer;
+  }
 </style>

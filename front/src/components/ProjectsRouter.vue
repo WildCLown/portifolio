@@ -32,7 +32,7 @@
     name: "ProjectRouter",
     data: () => ({
       items: [
-        { title: 'Click Me1' },
+        { title: 'Bezier Curve' },
         { title: 'Click Me2' },
         { title: 'Click Me3' },
         { title: 'Click Me4' },
