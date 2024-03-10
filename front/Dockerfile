@@ -11,6 +11,4 @@ RUN yarn install
 COPY package.json yarn.lock /usr/src/app
 COPY . /usr/src/app
 
-RUN yarn build
-
 CMD ["yarn", "start"]

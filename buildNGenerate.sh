@@ -12,8 +12,9 @@ read -p "Enter your choice: " choice
 
 case $choice in
     1)
-        docker build ./front
-        docker cp Frontend-Portifolio-Docker-Gabriel-Teixeira:/usr/src/app/dist/. .
+        cd front
+        sudo yarn build
+        cp -r ./dist/. ..
         ;;
     2)
         rm -rf css img js index.html GT.png
