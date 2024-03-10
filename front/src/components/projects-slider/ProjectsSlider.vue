@@ -2,7 +2,7 @@
     <v-card
       class="mx-auto"
       elevation="24"
-      max-width="50%"
+      :width="cardSize"
     >
       <v-carousel
         :continuous="true"
@@ -21,12 +21,12 @@
             style="height: 100%"
           >
             <v-layout raw wrap>
-              <v-flex xs6>
+              <v-flex lg6 xs12>
                 <v-card outlined style="border: none; border-radius: 0; height: 100%">
                   <v-card-title class="text-h6 justify-center" style="border-radius: 0;">
                     {{project.projectName}}
                   </v-card-title>
-                  <v-card-text style="height: 100%" :style="project.imgSide.backgroundColor">
+                  <v-card-text style="height: 100%" :style="project.imgSide.backgroundColor" v-if="$vuetify.breakpoint.lgAndUp">
                     <v-layout row wrap align-center style="height: 100%">
                       <v-flex pa-6 mb-15>
                         <v-img
@@ -38,7 +38,7 @@
                 </v-card>
               </v-flex>
               <v-flex 
-                xs6 
+                lg6 xs12 
                 height="100%" 
                 pa-4>
                 <v-layout
@@ -48,7 +48,7 @@
                   <v-flex mb-10 xs12>
                     {{ project.textSide.message }}
                   </v-flex>
-                  <v-flex xs12 mb-10>
+                  <v-flex xs12>
                     <p>
                       Local: {{ project.textSide.projectHosted}}
                     </p>
@@ -70,7 +70,7 @@
   <script>
   import cyberImage from "@/assets/projectsImg/CyberSource.svg"
   import stoolitLogo from "@/assets/projectsImg/Stoolit.png"
-
+  import bezierCurves from "@/assets/projectsImg/bezierCurves.png"
   export default {
     name: "ProjectsSlider",
     
@@ -133,16 +133,23 @@
             },
             imgSide: {
               backgroundColor: 'background-color: grey;',
-              imageSrc: stoolitLogo
+              imageSrc: bezierCurves
             }
           },
         ]
       }
     },
+    computed: {
+      cardSize: {
+        get: function() {
+          return this.$vuetify.breakpoint.lgAndUp? "50%" : "100%"
+        }
+      }
+    },
     methods: {
     redirectPage(link){
       window.open(link, '_blank').focus()
-    }
+    },
   },
   };
   </script>

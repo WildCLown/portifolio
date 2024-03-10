@@ -1,5 +1,5 @@
 <template>
-    <v-layout row wrap style="background-color: grey;" v-on:click="refatorization()">
+    <v-layout row wrap style="background-color: grey;" v-on:click="reset()">
         <v-flex class="text-center" xs12>
             <h1> 
                 Trabalho faculdade de 

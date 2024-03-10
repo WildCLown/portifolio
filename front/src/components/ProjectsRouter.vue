@@ -19,15 +19,18 @@
           v-for="(item, index) in items"
           :key="index"
         >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-title 
+            class="clickable"
+            v-on:click="setProject(index+1)"
+          >
+            {{ item.title }}
+          </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
   </div>
 </template>
 <script>
-  import { mergeProps } from 'vue'
-
   export default {
     name: "ProjectRouter",
     data: () => ({
@@ -38,11 +41,15 @@
         { title: 'Click Me4' },
       ],
     }),
-    props: {
-
-    },
     methods: {
-      mergeProps,
-    },
+      setProject(projectNumber) {
+        this.$emit('set-project', projectNumber);
+      }
+    }
   }
 </script>
+<style scoped>
+  .clickable{
+    cursor: pointer;
+  }
+</style>

@@ -24,7 +24,9 @@
       <v-flex lg7 v-if="this.$vuetify.breakpoint.lgAndUp">
         <v-layout row wrap text-right pr-5>
           <v-flex>
-            <v-btn color="primary" large>
+            <v-btn color="primary" large
+             v-on:click="setProject(0)"
+             >
               <label class="primaryText--text text-h4 font-weight-light">
                 Home
               </label>
@@ -53,7 +55,11 @@
             </v-btn>
           </v-flex>
           <v-flex>
-            <projects-router color="primary" large d-flex/>
+            <projects-router 
+            color="primary" 
+            large d-flex
+            @set-project="setProject"
+            />
           </v-flex>
         </v-layout>
       </v-flex>
@@ -83,8 +89,8 @@ export default {
         document.body.scrollHeight || document.documentElement.scrollHeight
       );
     },
-    openBurguer() {
-      
+    setProject(projectNumber) {
+      this.$emit('set-project', projectNumber);
     }
   },
 };

@@ -1,18 +1,20 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
-      <header-teixa/>
+      <header-teixa
+        @set-project="setProject"
+      />
     </v-app-bar>
     <v-layout class="mt-16"/>
-    <v-layout v-if="isHomePage" row wrap>
+    <v-layout v-if="definedProject == 0" row wrap>
       <v-flex xs12>
         <personal-info />
       </v-flex>
-      <v-flex xs12>
+      <v-flex xs12 mb-5 mx-8>
         <projects-slider/>
       </v-flex>
     </v-layout>
-    <v-layout row wrap v-if="isBazierProject">
+    <v-layout row wrap v-if="definedProject == 1">
       <v-flex xs12>
         <bezier-curves/>
       </v-flex>
@@ -39,9 +41,13 @@ export default {
   },
 
   data: () => ({
-    isHomePage: true,
-    isBazierProject: false
+    definedProject: 0
   }),
+  methods: {
+    setProject(projectNumber){
+      this.definedProject = projectNumber
+    }
+  }
 };
 </script>
 <style lang="scss">
