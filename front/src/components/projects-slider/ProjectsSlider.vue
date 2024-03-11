@@ -2,7 +2,7 @@
     <v-card
       class="mx-auto"
       elevation="24"
-      :width="cardSize"
+      :width="cardSize.width"
     >
       <v-carousel
         :continuous="true"
@@ -43,7 +43,7 @@
                 pa-4>
                 <v-layout
                   row wrap
-                  class="text-h5"
+                  :class="cardSize.textSize"
                   pa-5>
                   <v-flex mb-10 xs12>
                     {{ project.textSide.message }}
@@ -142,7 +142,10 @@
     computed: {
       cardSize: {
         get: function() {
-          return this.$vuetify.breakpoint.lgAndUp? "50%" : "100%"
+          return { 
+            width: this.$vuetify.breakpoint.lgAndUp? "50%" : "100%",
+            textSize: this.$vuetify.breakpoint.lgAndUp? 'text-h6' : 'subtitle-1'
+          }
         }
       }
     },
