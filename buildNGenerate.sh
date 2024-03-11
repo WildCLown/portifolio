@@ -15,6 +15,7 @@ case $choice in
         cd front
         sudo yarn build
         cp -r ./dist/. ..
+        rm -rf ./dist
         ;;
     2)
         rm -rf css img js index.html GT.png
