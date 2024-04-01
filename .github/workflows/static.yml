@@ -40,7 +40,7 @@ jobs:
         run: cd front && yarn build && mv  ./dist ../
       - name: Compact Static Files
         shell: bash
-        run: tar -czvf staticFolder.tar.gz dist
+        run: tar -czvf staticFolder.tar.gz ./dist
       - name: Upload to Github Repo
         uses: actions/upload-artifact@v2
         with:
@@ -62,7 +62,7 @@ jobs:
           name: PortifolioPageArtifact
       - name: Unpack Static Files
         shell: bash
-        run: tar -xzf staticFolder.tar.gz
+        run: tar -xzf staticFolder.tar.gz && cd dist && mv * ../ && cd .. && rmdir dist
       - name: Set Commiter Name and Mail
         shell: bash
         run: git config --global user.email "clownDeployer@wildclown.com" && git config --global user.name "Clown Deployer"
