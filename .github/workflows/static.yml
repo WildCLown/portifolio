@@ -62,7 +62,7 @@ jobs:
           name: PortifolioPageArtifact
       - name: Unpack Static Files
         shell: bash
-        run: tar -xzf staticFolder.tar.gz && cd dist && mv * ../ && cd .. && rmdir dist
+        run: tar -xzf staticFolder.tar.gz && cd dist && mv * ../ && cd .. && rmdir dist && rm staticFolder.tar.gz
       - name: Set Commiter Name and Mail
         shell: bash
         run: git config --global user.email "clownDeployer@wildclown.com" && git config --global user.name "Clown Deployer"
