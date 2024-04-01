@@ -17,27 +17,47 @@ permissions:
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
-          # Upload entire repository
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          - node-version: 18.18.0
+      - name: Install Yarn
+        shell: bash
+        run: npm install yarn -g
+      - name: Build N Generate
+        shell: bash
+        run: echo 1 | bash ./buildNGenerate.sh
+      - name: Compact Static Files
+        shell: bash
+        run: tar -xzvf staticFolder.tar.gz dist 
+      - name: Upload to Github Repo
+        uses: actions/upload-artifact@v2
+        with:
+          name: PortifolioPageArtifact
+          path: staticFolder.tar.gz
+      
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with: 
+          ref: served-page
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: PortifolioPageArtifact
+      - name: Unpack Static Files
+        shell: bash
+        run: tar -xzf staticFolder.tar.gz
+      - name: Commit page file changes to branch
+        shell: bash
+        run: git add . && git commit -m "Uploading page, GLHF" && git push

@@ -1,5 +1,4 @@
 #!/bin/bash
-
 echo "====================================="
 echo "THIS SHELL SCRIPT IS USED TO HELP BUILD AND CLEAN VUE PROJECT FROM Frontend-Portifolio-Docker-Gabriel-Teixeira"
 echo "#1 - Build and get files"
@@ -14,11 +13,11 @@ case $choice in
     1)
         cd front
         yarn build
-        cp -r ./dist/. ..
-        rm -rf ./dist
+        mv  ./dist ../
+        cd ..
         ;;
     2)
-        rm -rf ./css ./img ./js index.html GT.png
+        rm -rf ./dist
         ;;
     3)
         echo "Exiting..."
@@ -30,7 +29,7 @@ case $choice in
 esac
 
 echo "====================================="
-echo "Thanks for using me, clown"
+echo "Thanks for using me, Clown"
 echo "====================================="
 
 read -p "Press Enter to exit..."
