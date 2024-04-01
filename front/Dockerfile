@@ -1,15 +1,14 @@
-FROM node:12-stretch
-
-RUN apt-get update && apt-get install -y curl apt-transport-https && \
-  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-  apt-get update && apt-get install -y yarn
+FROM node:18-alpine
+RUN apk update && apk add bash
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+CMD bash
 
 WORKDIR /usr/src/app
 
 RUN yarn global add @vue/cli
-
-COPY package*.json ./
-COPY yarn.lock ./
 RUN yarn install
-COPY . .
+
+COPY package.json yarn.lock /usr/src/app
+COPY . /usr/src/app
+
+CMD ["yarn", "start"]

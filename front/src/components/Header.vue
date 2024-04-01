@@ -1,50 +1,102 @@
 <template>
-  <v-app-bar app color="primary" dark>
-    <v-layout row wrap class="d-flex align-center">
-      <v-flex pl-5 xs4>
+    <v-layout row wrap class="align-center" >
+      <v-flex lg5 xs11>
         <v-layout row wrap class="align-center">
-          <v-img
-            alt="Vuetify Logo"
-            class="shrink mr-2 d-inline-block"
-            contain
-            :src="require('../assets/icons/GT.png')"
-            width="60"
-          />
-          <label class="primaryText--text text-h4 font-weight-bold">
-            Gabriel Teixeira's Portifolio
+          <v-flex lg1 xs2 class="align-center">
+            <v-img
+              class="mr-2"
+              contain
+              style="width: 80%"
+              :src="require('@/assets/icons/GT.png')"
+            />
+          </v-flex>
+          <v-flex xs10>
+            <label class="primaryText--text text-h4 font-weight-light">
+            {{
+              this.$vuetify.breakpoint.lgAndUp
+                ? "Gabriel Teixeira's Portifolio"
+                : "Portifolio"
+            }}
           </label>
+          </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex xs8>
+      <v-flex lg7 v-if="this.$vuetify.breakpoint.lgAndUp">
         <v-layout row wrap text-right pr-5>
           <v-flex>
-            <v-btn color="primary" large>
-              <label class="primaryText--text text-h4 font-weight-bold">
+            <v-btn color="primary" large
+             v-on:click="setProject(0)"
+             >
+              <label class="primaryText--text text-h4 font-weight-light">
                 Home
               </label>
             </v-btn>
-            <v-btn color="primary" large>
-              <label class="primaryText--text text-h4 font-weight-bold">
+          </v-flex>
+          <v-flex>
+            <v-btn
+              color="primary"
+              large
+              v-bind:href="resumeLink"
+              target="_blank"
+            >
+              <label class="primaryText--text text-h4 font-weight-light">
                 Resume
               </label>
             </v-btn>
+          </v-flex>
+          <v-flex>
             <v-btn color="primary" large>
-              <label class="primaryText--text text-h4 font-weight-bold">
+              <label
+                class="primaryText--text text-h4 font-weight-light"
+                v-on:click="toBottom"
+              >
                 Contact me
               </label>
             </v-btn>
           </v-flex>
+          <v-flex>
+            <projects-router 
+            color="primary" 
+            large d-flex
+            @set-project="setProject"
+            />
+          </v-flex>
         </v-layout>
       </v-flex>
+      <v-flex v-else xs1>
+        B
+      </v-flex>
     </v-layout>
-  </v-app-bar>
 </template>
 
 <script>
+import ProjectsRouter from "@/components/ProjectsRouter.vue";
 export default {
-  name: "HeaderTest",
+  name: "HeaderTeixa",
+  components: {
+    ProjectsRouter
+  },
   data() {
-    return {};
+    return {
+      resumeLink:
+        "https://docs.google.com/document/d/17EynYhchMHIT1iBpN1ZeJMSKubLUtcaO/edit?usp=sharing&ouid=102972674160742966050&rtpof=true&sd=true",
+    };
+  },
+  methods: {
+    toBottom() {
+      window.scrollTo(
+        0,
+        document.body.scrollHeight || document.documentElement.scrollHeight
+      );
+    },
+    setProject(projectNumber) {
+      this.$emit('set-project', projectNumber);
+    }
   },
 };
 </script>
+<style scoped>
+  .v-btn--is-elevated {
+    box-shadow: none;
+  }
+</style>
