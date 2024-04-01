@@ -13,12 +13,12 @@ read -p "Enter your choice: " choice
 case $choice in
     1)
         cd front
-        sudo yarn build
+        yarn build
         cp -r ./dist/. ..
         rm -rf ./dist
         ;;
     2)
-        rm -rf css img js index.html GT.png
+        rm -rf ./css ./img ./js index.html GT.png
         ;;
     3)
         echo "Exiting..."
