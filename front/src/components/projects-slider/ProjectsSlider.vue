@@ -18,7 +18,7 @@
           <v-sheet
             :color="project.textSide.backgroundColor"
             tile
-            style="height: 100%"
+            style="height: 100%;"
           >
             <v-layout raw wrap>
               <v-flex lg6 xs12>
@@ -40,12 +40,14 @@
               <v-flex 
                 lg6 xs12 
                 height="100%" 
-                pa-4>
+                pa-4
+                >
                 <v-layout
                   row wrap
                   :class="cardSize.textSize"
+                  style="overflow-y: scroll"
                   pa-5>
-                  <v-flex mb-10 xs12>
+                  <v-flex xs12>
                     {{ project.textSide.message }}
                   </v-flex>
                   <v-flex xs12>

@@ -1,5 +1,5 @@
 <template>
-    <v-layout row wrap style="background-color: grey;" v-on:click="reset()">
+    <v-layout pt-5 row wrap style="background-color: grey;" v-on:click="reset()">
         <v-flex class="text-center" xs12>
             <h1> 
                 Trabalho faculdade de 
@@ -9,7 +9,7 @@
                     v-on:mouseleave="isHovered = false"
                     class="clickable"
                 >
-                     GTSA 
+                    GTSA 
                 </span> 
                 e
                 <span 
@@ -25,8 +25,8 @@
                     id= "canvas" 
                     width= "750"
                     height= "500" 
-                    style = "border: 3px solid#000000;"
-            ></canvas>
+                    style = "border: 3px solid #000000;"
+            />
         </v-flex>
         <v-flex xs12 class="text-center" justify-center>
             <v-layout row wrap justify-center pt-5>

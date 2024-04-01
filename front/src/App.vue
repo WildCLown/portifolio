@@ -5,21 +5,16 @@
         @set-project="setProject"
       />
     </v-app-bar>
-    <v-layout class="mt-16"/>
-    <v-layout v-if="definedProject == 0" row wrap>
-      <v-flex xs12>
-        <personal-info />
-      </v-flex>
-      <v-flex xs12 mb-5 mx-8>
+    <v-layout row wrap justify-center mt-12>
+      <v-flex xs12 v-if="definedProject == 0">
+        <personal-info/>
         <projects-slider/>
       </v-flex>
-    </v-layout>
-    <v-layout row wrap justify-center>
       <v-flex xs12 v-if="definedProject == 1">
-        <bezier-curves/>
+        <bezier-curves />
       </v-flex>
-      <v-flex xs7 v-if="definedProject == 2">
-        <mail-signature/>
+      <v-flex xs7 v-if="definedProject == 2" height="100%">
+        <mail-signature />
       </v-flex>
     </v-layout>
     <footer-teixa />
