@@ -21,3 +21,6 @@
 *.njsproj
 *.sln
 *.sw?
+
+# Compressed Files
+*.tar.gz

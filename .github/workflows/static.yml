@@ -28,16 +28,19 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v4
         with:
-          - node-version: 18.18.0
+          node-version: 18.18.0
       - name: Install Yarn
         shell: bash
         run: npm install yarn -g
-      - name: Build N Generate
+      - name: Install Dependencies
         shell: bash
-        run: echo 1 | bash ./buildNGenerate.sh
+        run: cd front && yarn install
+      - name: Build N Move
+        shell: bash
+        run: cd front && yarn build && mv  ./dist ../
       - name: Compact Static Files
         shell: bash
-        run: tar -xzvf staticFolder.tar.gz dist 
+        run: tar -czvf staticFolder.tar.gz dist
       - name: Upload to Github Repo
         uses: actions/upload-artifact@v2
         with:
@@ -45,12 +48,14 @@ jobs:
           path: staticFolder.tar.gz
       
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with: 
           ref: served-page
+          token: ${{secrets.PAT}}
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
@@ -58,6 +63,9 @@ jobs:
       - name: Unpack Static Files
         shell: bash
         run: tar -xzf staticFolder.tar.gz
+      - name: Set Commiter Name and Mail
+        shell: bash
+        run: git config --global user.email "clownDeployer@wildclown.com" && git config --global user.name "Clown Deployer"
       - name: Commit page file changes to branch
         shell: bash
-        run: git add . && git commit -m "Uploading page, GLHF" && git push
+        run: git add . && git commit -m "Uploading page, GLHF"  && git push
