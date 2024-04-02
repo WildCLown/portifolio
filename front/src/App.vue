@@ -5,15 +5,15 @@
         @set-project="setProject"
       />
     </v-app-bar>
-    <v-layout row wrap justify-center mt-12>
-      <v-flex xs12 v-if="definedProject == 0">
+    <v-layout row wrap justify-center align-center mt-12>
+      <v-flex xs12 v-if="definedProject == project['portifolio']">
         <personal-info/>
         <projects-slider/>
       </v-flex>
-      <v-flex xs12 v-if="definedProject == 1">
+      <v-flex xs12 v-if="definedProject == project['bezierCurves']">
         <bezier-curves />
       </v-flex>
-      <v-flex xs7 v-if="definedProject == 2" height="100%">
+      <v-flex xs7 v-if="definedProject == project['mailSignature']" pa-5>
         <mail-signature />
       </v-flex>
     </v-layout>
@@ -41,7 +41,12 @@ export default {
   },
 
   data: () => ({
-    definedProject: 0
+    definedProject: 0,
+    project: {
+      portifolio: 0,
+      bezierCurves: 1,
+      mailSignature: 2
+    }
   }),
   methods: {
     setProject(projectNumber){
