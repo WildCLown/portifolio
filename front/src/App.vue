@@ -1,10 +1,12 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <header-teixa
-        @set-project="setProject"
-      />
-    </v-app-bar>
+    <v-layout>
+      <v-flex xs12>
+        <header-teixa
+          @set-project="setProject"
+        />
+      </v-flex>
+    </v-layout>
     <v-layout row wrap justify-center align-center mt-12>
       <v-flex xs12 v-show="definedProject == project['portifolio']">
         <personal-info/>

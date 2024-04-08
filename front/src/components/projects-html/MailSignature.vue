@@ -34,9 +34,9 @@
             <v-layout row wrap class="text-center">
                 <v-flex xs12>
                     <div 
-                        id="outputImg"
-                        style="background-color: white"
-                        v-html="html85Based"/>
+                    id="outputImg"
+                    style="background-color: white"
+                    v-html="html85Based"/>
                 </v-flex>
                 <v-flex xs12 mt-16 mb-8 mx-3>
                     <v-btn

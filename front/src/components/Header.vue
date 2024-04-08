@@ -1,5 +1,12 @@
 <template>
-    <v-layout row wrap class="align-center" >
+    <v-layout
+      row
+      wrap
+      class="align-center justify-space-between"
+      dark
+      :style="{background: $vuetify.theme.themes.dark.primary}"
+      py-1
+    >
       <v-flex lg5 xs10>
         <v-layout row wrap class="align-center">
           <v-flex lg1 xs2 class="align-center">
@@ -21,18 +28,20 @@
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex lg7 v-if="this.$vuetify.breakpoint.lgAndUp">
-        <v-layout row wrap text-right pr-5>
-          <v-flex>
-            <v-btn color="primary" large
-               v-on:click="setProject(0)"
+      <v-flex lg5 v-if="this.$vuetify.breakpoint.lgAndUp">
+        <v-layout row wrap text-right>
+          <v-flex class="text-center">
+            <v-btn 
+              color="primary"
+              large
+              v-on:click="setProject(0)"
              >
               <label class="primaryText--text text-h4 font-weight-light">
                 Home
               </label>
             </v-btn>
           </v-flex>
-          <v-flex>
+          <v-flex class="text-center">
             <v-btn
               color="primary"
               large
@@ -46,12 +55,12 @@
           </v-flex>
           <v-flex>
             <projects-router 
-            color="primary" 
-            large d-flex
-            @set-project="setProject"
+              color="primary" 
+              large
+              @set-project="setProject"
             />
           </v-flex>
-          <v-flex>
+          <v-flex class="text-center">
             <v-btn color="primary" large>
               <label
                 class="primaryText--text text-h4 font-weight-light"
