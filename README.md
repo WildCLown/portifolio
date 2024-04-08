@@ -1,3 +1,5 @@
 # portifolio
 
-In order to build index, use sudo sh buildNGenerate.sh 
+Master pushes deploy this page on
+
+https://wildclown.github.io/portifolio/
