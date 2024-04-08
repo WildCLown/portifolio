@@ -1,4 +1,5 @@
 FROM node:18-alpine
+EXPOSE 8080
 RUN apk update && apk add bash
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 CMD bash

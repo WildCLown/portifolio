@@ -6,14 +6,14 @@
       />
     </v-app-bar>
     <v-layout row wrap justify-center align-center mt-12>
-      <v-flex xs12 v-if="definedProject == project['portifolio']">
+      <v-flex xs12 v-show="definedProject == project['portifolio']">
         <personal-info/>
         <projects-slider/>
       </v-flex>
-      <v-flex xs12 v-if="definedProject == project['bezierCurves']">
+      <v-flex xs12 v-show="definedProject == project['bezierCurves']">
         <bezier-curves />
       </v-flex>
-      <v-flex xs7 v-if="definedProject == project['mailSignature']" pa-5>
+      <v-flex xs7 v-show="definedProject == project['mailSignature']">
         <mail-signature />
       </v-flex>
     </v-layout>

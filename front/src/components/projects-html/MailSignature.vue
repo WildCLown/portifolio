@@ -8,28 +8,35 @@
             backgroundRepeat: 'no-repeat',
             backgroundSize: '100%',
         }"
-        h-screen
         class="oldBody"
         pa-15
     >
-        <v-flex xs5 pa-2 ma-1 class="formArea">
+        <v-flex xs11 lg5 pa-2 ma-1 class="formArea">
             <v-layout row wrap>
                 <v-flex xs10 mx-3>
                     <v-text-field label="Nome" v-model="name"/>
+                </v-flex>
+                <v-flex xs10 mx-3>
                     <v-text-field label="Celular" v-model="phoneNumber" placeholder="XX XXXXX-XXXX"/>
+                </v-flex>
+                <v-flex xs10 mx-3>
                     <v-text-field label="Número Empresa" v-model="companyPhone"/>
+                </v-flex>
+                <v-flex xs10 mx-3>
                     <v-text-field label="Email" v-model="email"/>
+                </v-flex>
+                <v-flex xs10 mx-3>
                     <v-text-field label="Skype" v-model="communicationChannel"/>
                 </v-flex>
             </v-layout>
         </v-flex>
-        <v-flex xs5 pa-2 ma-1 class="formArea">
+        <v-flex xs11 lg5 pa-2 ma-1 class="formArea">
             <v-layout row wrap class="text-center">
                 <v-flex xs12>
                     <div 
-                    id="outputImg"
-                    style="background-color: white"
-                    v-html="html85Based"/>
+                        id="outputImg"
+                        style="background-color: white"
+                        v-html="html85Based"/>
                 </v-flex>
                 <v-flex xs12 mt-16 mb-8 mx-3>
                     <v-btn
@@ -139,50 +146,13 @@ export default {
 };
 </script>
 <style scoped>
-    .inputArea{
-        font-family: "Bahnschrift"; 
-    }
-
-    .oldBody{
-        font-family: 'Bahnschrift';
-    }
-
-    .holidayContent{
-        display: none;
-    }
-    #listEraseButt{
-        display : table-cell;
-    }
-    .eraseButt{
-        width: 100%;
-        color: white;
-        background-color: #C01E24;
-        font-family: "Bahnschrift";
-        display: block;
-    }
-
     #outputImg{
         background-color: white;
     }
 
     .formArea{
         background-color: #313131;
-        justify-content: center;
-        width: 400px;
-        height: 400px;
-        box-shadow: 3px 3px 2px rgb(54, 54, 54);
-        padding-bottom: 0.1px;
-    }
-
-    #formResult{
-        margin-left: 20px;
-        background-color: #C8C8C8;
-        justify-content: center;
-        width: 400px;
-        padding-bottom: 0.1px;
-        padding-top: 20px;
         box-shadow: 3px 3px 2px rgb(54, 54, 54);
     }
     
-
 </style>

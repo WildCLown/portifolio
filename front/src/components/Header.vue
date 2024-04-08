@@ -1,6 +1,6 @@
 <template>
     <v-layout row wrap class="align-center" >
-      <v-flex lg5 xs11>
+      <v-flex lg5 xs10>
         <v-layout row wrap class="align-center">
           <v-flex lg1 xs2 class="align-center">
             <v-img
@@ -25,7 +25,7 @@
         <v-layout row wrap text-right pr-5>
           <v-flex>
             <v-btn color="primary" large
-             v-on:click="setProject(0)"
+               v-on:click="setProject(0)"
              >
               <label class="primaryText--text text-h4 font-weight-light">
                 Home
@@ -45,6 +45,13 @@
             </v-btn>
           </v-flex>
           <v-flex>
+            <projects-router 
+            color="primary" 
+            large d-flex
+            @set-project="setProject"
+            />
+          </v-flex>
+          <v-flex>
             <v-btn color="primary" large>
               <label
                 class="primaryText--text text-h4 font-weight-light"
@@ -54,17 +61,69 @@
               </label>
             </v-btn>
           </v-flex>
-          <v-flex>
-            <projects-router 
-            color="primary" 
-            large d-flex
-            @set-project="setProject"
-            />
-          </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex v-else xs1>
-        B
+      <v-flex v-else xs2>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              dark
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-icon
+                color="primaryText">
+                mdi-format-list-bulleted-square
+              </v-icon>
+            </v-btn>
+          </template>
+          <v-list color="primary">
+            <v-list-item class="justify-center">
+              <v-btn
+                v-on:click="setProject(0)"
+                color="primary"
+              >
+                <label
+                  class="primaryText--text font-weight-light"
+                >
+                  Home
+                </label>
+              </v-btn>
+            </v-list-item>
+            <v-list-item class="justify-center">
+              <v-btn
+                v-bind:href="resumeLink"
+                target="_blank"
+                color="primary"
+              >
+                <label
+                  class="primaryText--text font-weight-light"
+                >
+                  Resume
+                </label>
+              </v-btn>
+            </v-list-item>
+            <v-list-item>
+              <v-flex>
+                <projects-router 
+                color="primary" 
+                large d-flex
+                @set-project="setProject"
+                />
+              </v-flex>
+            </v-list-item>
+            <v-list-item>
+              <v-btn color="primary" large v-on:click="toBottom">
+                <label
+                  class="primaryText--text font-weight-light"
+                >
+                  Contact me
+                </label>
+              </v-btn>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-flex>
     </v-layout>
 </template>
@@ -85,8 +144,7 @@ export default {
   methods: {
     toBottom() {
       window.scrollTo(
-        0,
-        document.body.scrollHeight || document.documentElement.scrollHeight
+        { top: document.body.scrollHeight, behavior: 'smooth' }
       );
     },
     setProject(projectNumber) {
