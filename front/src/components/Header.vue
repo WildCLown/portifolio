@@ -4,7 +4,7 @@
       wrap
       class="align-center justify-space-between"
       dark
-      :style="{background: $vuetify.theme.themes.dark.primary}"
+      :style="{background: $vuetify.theme.themes.dark.primary, position: 'fixed', zIndex: 99999, width: '100%'}"
       py-1
     >
       <v-flex lg5 xs10>

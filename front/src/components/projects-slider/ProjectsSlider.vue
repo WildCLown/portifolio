@@ -130,7 +130,7 @@
                 "to create bezier curves according to given ancor points, and giving",
                 "the number of interations that the curve may have."
               ].join(" "),
-              projectHosted: "Here, go to Projects - Bezier Curves",
+              projectHosted: "Here, go to Projects - Bezier Curves using Desktop",
               buttonGoTo: null
             },
             imgSide: {
