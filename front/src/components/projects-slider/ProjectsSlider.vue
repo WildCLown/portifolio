@@ -1,78 +1,89 @@
 <template>
-    <v-card
-      class="mx-auto"
-      elevation="24"
-      :width="cardSize.width"
+  <v-card
+    class="mx-auto"
+    elevation="24"
+    :width="cardSize.width"
+  >
+    <v-carousel
+      :continuous="true"
+      :show-arrows="true"
+      hide-delimiters
+      class="justify-center"
     >
-      <v-carousel
-        :continuous="true"
-        :show-arrows="true"
-        hide-delimiters
-        class="justify-center"
+      <v-carousel-item
+        v-for="(project, i) in projects"
+        :key="i"
+        delimiter-icon="mdi-square"
       >
-        <v-carousel-item
-          v-for="(project, i) in projects"
-          :key="i"
-          delimiter-icon="mdi-square"
+        <v-sheet
+          :color="project.textSide.backgroundColor"
+          tile
+          style="height: 100%;"
         >
-          <v-sheet
-            :color="project.textSide.backgroundColor"
-            tile
-            style="height: 100%;"
-          >
-            <v-layout raw wrap>
-              <v-flex lg6 xs12>
-                <v-card outlined style="border: none; border-radius: 0; height: 100%">
-                  <v-card-title class="text-h6 justify-center" style="border-radius: 0;">
-                    {{project.projectName}}
-                  </v-card-title>
-                  <v-card-text style="height: 100%" :style="project.imgSide.backgroundColor" v-if="$vuetify.breakpoint.lgAndUp">
-                    <v-layout row wrap align-center style="height: 100%">
-                      <v-flex pa-6 mb-15>
-                        <v-img
-                          :src="project.imgSide.imageSrc"
-                        />
-                      </v-flex>
-                    </v-layout>
-                  </v-card-text>
-                </v-card>
-              </v-flex>
-              <v-flex 
-                lg6 xs12 
-                height="100%" 
-                pa-4
+          <v-layout raw wrap fill-height>
+            <v-flex lg6 xs12>
+              <v-layout 
+                  row 
+                  wrap
+                  class="text-center"
+                  v-if="$vuetify.breakpoint.lgAndUp"
+                  fill-height
+                  :style="{backgroundColor: project.imgSide.backgroundColor}"
+              >
+                <v-flex 
+                  xs12
+                  py-4
+                  :style="{background: $vuetify.theme.themes.dark.primary}"
+                  class="primaryText--text text-h6 font-weight-dark align-self-start"
                 >
-                <v-layout
-                  row wrap
-                  :class="cardSize.textSize"
-                  style="overflow-y: scroll"
-                  pa-5>
-                  <v-flex xs12>
-                    {{ project.textSide.message }}
-                  </v-flex>
-                  <v-flex xs12>
-                    <p>
-                      Local: {{ project.textSide.projectHosted}}
-                    </p>
-                  </v-flex>
-                  <v-flex v-if="project.textSide.buttonGoTo != null" class="text-center" xs12>
-                    <v-btn v-on:click="redirectPage(project.textSide.buttonGoTo)">
-                      Preview Project
-                    </v-btn>
-                  </v-flex>
-                </v-layout>
-              </v-flex>
-            </v-layout>
-          </v-sheet>
-        </v-carousel-item>
-      </v-carousel>
-    </v-card>
-  </template>
-  
-  <script>
+                  {{project.projectName}}
+                </v-flex>
+                <v-flex 
+                  xs12
+                  :style="{backgroundColor: project.imgSide.backgroundColor}"
+                  pa-3
+                >
+                  <v-img
+                    :src="project.imgSide.imageSrc"
+                  />
+                </v-flex>
+              </v-layout>
+            </v-flex>
+            <v-flex 
+              lg6 xs12 
+            >
+              <v-layout
+                row wrap
+                :class="cardSize.textSize"
+                :style="{color: project.textSide.textColor}"
+                pa-5
+              >
+                <v-flex xs12>
+                  {{ project.textSide.message }}
+                </v-flex>
+                <v-flex xs12>
+                  <p>
+                    Local: {{ project.textSide.projectHosted}}
+                  </p>
+                </v-flex>
+                <v-flex v-if="project.textSide.buttonGoTo != null" class="text-center" xs12>
+                  <v-btn v-on:click="redirectPage(project.textSide.buttonGoTo)">
+                    Preview Project
+                  </v-btn>
+                </v-flex>
+              </v-layout>
+            </v-flex>
+          </v-layout>
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>
+  </v-card>
+</template>
+<script>
   import cyberImage from "@/assets/projectsImg/CyberSource.svg"
   import stoolitLogo from "@/assets/projectsImg/Stoolit.png"
   import bezierCurves from "@/assets/projectsImg/bezierCurves.png"
+  import ribbitCapital from "@/assets/projectsImg/ribbit.png"
   export default {
     name: "ProjectsSlider",
     
@@ -82,7 +93,7 @@
           {
             projectName: 'Stoolit',
             textSide: {
-              backgroundColor: 'blue',
+              backgroundColor: '#1E6F50',
               textColor: "white",
               message: [
                 "Stoolit was a game developed which intends to provide user",
@@ -95,35 +106,58 @@
               buttonGoTo: "https://www.youtube.com/watch?v=ePslfyGNGEk&t"
             },
             imgSide: {
-              backgroundColor: 'background-color: grey;',
+              backgroundColor: '#063f94',
               imageSrc: stoolitLogo
             }
           },
           {
             projectName: 'CyberSource 3DS',
             textSide: {
-              backgroundColor: 'green',
+              backgroundColor: '#202A44',
               textColor: "white",
               message: [
                 "Three-Domain Secure is a protocol to level-up security",
                 "in online transaction aiming to reduce frauds and",
                 "therefore payment reversals.",
                 "In this project was able to prove leadership skills",
-                "and end to end architecture development using Kotlin."
+                "and end to end architecture development using Kotlin.",
+                "This project enabled a increase of transactions by over",
+                "R$ 670000.00 per month in Acqio's operation."
               ].join(" "),
               projectHosted: "Acqio's Internal system",
               buttonGoTo: null
             },
             imgSide: {
-              backgroundColor: 'background-color: grey;',
+              backgroundColor: 'grey',
               imageSrc: cyberImage
+            }
+          },
+          {
+            projectName: 'Ribbit API Integration',
+            textSide: {
+              backgroundColor: '#1FC676',
+              textColor: "#000000",
+              message: [
+                "Now called Validifi, Ribbit integration was Access Loans project",
+                "that by receiving client personal information and concent,",
+                "would verify data sent, collecting bank cashflow in order",
+                "to analyse if the new user requesting loan is or not a good payer",
+                "This project reduced operation costs by more than U$ 100000.00",
+                "for SNBNY operations."
+              ].join(" "),
+              projectHosted: "Access Loans customer onboarding flow",
+              buttonGoTo: null
+            },
+            imgSide: {
+              backgroundColor: 'white',
+              imageSrc: ribbitCapital
             }
           },
           {
             projectName: 'Bezier Curves',
             textSide: {
-              backgroundColor: 'orange',
-              textColor: "white",
+              backgroundColor: '#FF9B4E',
+              textColor: "#000000",
               message: [
                 "Bezier Curves was a challenging project for college discipline",
                 "Graphic Processing, which purpose was create a tool that was able",
@@ -134,10 +168,10 @@
               buttonGoTo: null
             },
             imgSide: {
-              backgroundColor: 'background-color: grey;',
+              backgroundColor: 'white',
               imageSrc: bezierCurves
             }
-          },
+          }
         ]
       }
     },
@@ -157,5 +191,15 @@
       },
     },
   };
-  </script>
+</script>
+<style scoped>
+  .hiddenScroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hiddenScroll::-webkit-scrollbar {
+    display: none;
+  }
+</style>
   
