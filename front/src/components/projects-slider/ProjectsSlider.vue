@@ -21,12 +21,11 @@
           style="height: 100%;"
         >
           <v-layout raw wrap fill-height>
-            <v-flex lg6 xs12>
+            <v-flex lg6 xs12 v-if="$vuetify.breakpoint.lgAndUp">
               <v-layout 
                   row 
                   wrap
                   class="text-center"
-                  v-if="$vuetify.breakpoint.lgAndUp"
                   fill-height
                   :style="{backgroundColor: project.imgSide.backgroundColor}"
               >
@@ -56,12 +55,18 @@
                 row wrap
                 :class="cardSize.textSize"
                 :style="{color: project.textSide.textColor}"
-                pa-5
               >
-                <v-flex xs12>
+                <v-flex 
+                  xs12
+                  :style="{background: $vuetify.theme.themes.dark.primary}"
+                  class="primaryText--text text-h6 font-weight-dark align-self-start text-center py-2"
+                >
+                  {{project.projectName}}
+                </v-flex>
+                <v-flex xs12 pa-5>
                   {{ project.textSide.message }}
                 </v-flex>
-                <v-flex xs12>
+                <v-flex xs12 px-5>
                   <p>
                     Local: {{ project.textSide.projectHosted}}
                   </p>
