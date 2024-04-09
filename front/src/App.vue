@@ -15,7 +15,7 @@
       <v-flex xs12 v-show="definedProject == project['bezierCurves']">
         <bezier-curves />
       </v-flex>
-      <v-flex xs7 v-show="definedProject == project['mailSignature']">
+      <v-flex xs12 v-show="definedProject == project['mailSignature']">
         <mail-signature />
       </v-flex>
     </v-layout>

@@ -152,10 +152,10 @@
       }
     },
     methods: {
-    redirectPage(link){
-      window.open(link, '_blank').focus()
+      redirectPage(link){
+        window.open(link, '_blank').focus()
+      },
     },
-  },
   };
   </script>
   
