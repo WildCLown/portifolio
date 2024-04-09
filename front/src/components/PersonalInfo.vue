@@ -21,13 +21,13 @@
           {{ informationText }}
         </p>
         <p>
-          <span style="color: blue">
+          <span style="color: #6CCDFD">
             BackEnd:
           </span>
           <span>
             {{ backEndStacks }}
           </span>
-          <span style="color: #a01620; padding-left: 30px">
+          <span style="color: #E9B86E; padding-left: 30px">
             FrontEnd:
           </span>
           <span>
@@ -38,7 +38,7 @@
           {{ personalInfo }}
         </p>
         <p>
-          <span style="color: green">
+          <span style="color: #89D358">
             {{linkedinPerson}}
           </span>
           "{{ linkedinDescribe }}"

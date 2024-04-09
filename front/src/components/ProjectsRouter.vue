@@ -44,7 +44,7 @@
         },
         { 
           title: 'Mail Signature', 
-          desktopOnly: false 
+          desktopOnly: true 
         },
       ],
     }),

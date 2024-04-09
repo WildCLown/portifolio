@@ -93,9 +93,7 @@
                 v-on:click="setProject(0)"
                 color="primary"
               >
-                <label
-                  class="primaryText--text font-weight-light"
-                >
+                <label class="primaryText--text font-weight-light">
                   Home
                 </label>
               </v-btn>
@@ -106,9 +104,7 @@
                 target="_blank"
                 color="primary"
               >
-                <label
-                  class="primaryText--text font-weight-light"
-                >
+                <label class="primaryText--text font-weight-light">
                   Resume
                 </label>
               </v-btn>
@@ -147,7 +143,7 @@ export default {
   data() {
     return {
       resumeLink:
-        "https://docs.google.com/document/d/17EynYhchMHIT1iBpN1ZeJMSKubLUtcaO/edit?usp=sharing&ouid=102972674160742966050&rtpof=true&sd=true",
+        "https://drive.google.com/file/d/1c1ICK6_TvqwG0s8UEqJkQ_m1gCvHUjT4/view?usp=sharing",
     };
   },
   methods: {
