@@ -7,11 +7,10 @@
       :style="{background: $vuetify.theme.themes.dark.primary, position: 'fixed', zIndex: 99999, width: '100%'}"
       py-1
     >
-      <v-flex lg5 xs10>
+      <v-flex lg5 xs10 py-1>
         <v-layout row wrap class="align-center">
-          <v-flex lg1 xs2 class="align-center">
+          <v-flex px-2 lg1 xs2 class="align-center">
             <v-img
-              class="mr-2"
               contain
               style="width: 80%"
               :src="require('@/assets/icons/GT.png')"
@@ -28,9 +27,9 @@
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex lg5 v-if="this.$vuetify.breakpoint.lgAndUp">
+      <v-flex py-1 px-5 lg7 v-if="this.$vuetify.breakpoint.lgAndUp">
         <v-layout row wrap text-right>
-          <v-flex class="text-center">
+          <v-flex class="text-center" xs3>
             <v-btn 
               color="primary"
               large
@@ -41,7 +40,7 @@
               </label>
             </v-btn>
           </v-flex>
-          <v-flex class="text-center">
+          <v-flex class="text-center" xs3>
             <v-btn
               color="primary"
               large
@@ -53,14 +52,14 @@
               </label>
             </v-btn>
           </v-flex>
-          <v-flex>
+          <v-flex xs3>
             <projects-router 
               color="primary" 
               large
               @set-project="setProject"
             />
           </v-flex>
-          <v-flex class="text-center">
+          <v-flex class="text-center" xs3>
             <v-btn color="primary" large>
               <label
                 class="primaryText--text text-h4 font-weight-light"
@@ -134,7 +133,7 @@
 </template>
 
 <script>
-import ProjectsRouter from "@/components/ProjectsRouter.vue";
+import ProjectsRouter from "@/components/header/ProjectsRouter.vue";
 export default {
   name: "HeaderTeixa",
   components: {

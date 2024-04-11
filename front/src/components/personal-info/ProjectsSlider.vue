@@ -1,88 +1,89 @@
 <template>
-  <v-card
-    class="mx-auto"
-    elevation="24"
-    :width="cardSize.width"
-  >
-    <v-carousel
-      :continuous="true"
-      :show-arrows="true"
-      hide-delimiters
-      class="justify-center"
-    >
-      <v-carousel-item
-        v-for="(project, i) in projects"
-        :key="i"
-        delimiter-icon="mdi-square"
+  <v-layout row wrap>
+    <v-flex xs12>
+      <v-card
+        elevation="24"
+        class="mx-auto"
+        :width="cardSize.width"
       >
-        <v-sheet
-          :color="project.textSide.backgroundColor"
-          tile
-          style="height: 100%;"
+        <v-carousel
+          :continuous="true"
+          :show-arrows="true"
+          hide-delimiters
         >
-          <v-layout raw wrap fill-height>
-            <v-flex lg6 xs12 v-if="$vuetify.breakpoint.lgAndUp">
-              <v-layout 
-                  row 
-                  wrap
-                  class="text-center"
-                  fill-height
-                  :style="{backgroundColor: project.imgSide.backgroundColor}"
-              >
-                <v-flex 
-                  xs12
-                  py-4
-                  :style="{background: $vuetify.theme.themes.dark.primary}"
-                  class="primaryText--text text-h6 font-weight-dark align-self-start"
-                >
-                  {{project.projectName}}
-                </v-flex>
-                <v-flex 
-                  xs12
-                  :style="{backgroundColor: project.imgSide.backgroundColor}"
-                  pa-3
-                >
-                  <v-img
-                    :src="project.imgSide.imageSrc"
-                  />
-                </v-flex>
-              </v-layout>
-            </v-flex>
-            <v-flex 
-              lg6 xs12 
+          <v-carousel-item
+            v-for="(project, i) in projects"
+            :key="i"
+            delimiter-icon="mdi-square"
+          >
+            <v-sheet
+              :color="project.textSide.backgroundColor"
+              tile
+              style="height: 100%;"
             >
-              <v-layout
-                row wrap
-                :class="cardSize.textSize"
-                :style="{color: project.textSide.textColor}"
-              >
+              <v-layout raw wrap fill-height>
+                <v-flex lg6 xs12 v-if="$vuetify.breakpoint.lgAndUp">
+                  <v-layout 
+                      row 
+                      wrap
+                      class="text-center"
+                      fill-height
+                      :style="{backgroundColor: project.imgSide.backgroundColor}"
+                  >
+                    <v-flex 
+                      xs12
+                      py-4
+                      :style="{background: $vuetify.theme.themes.dark.primary}"
+                      class="primaryText--text text-h6 font-weight-dark align-self-start"
+                    >
+                      {{project.projectName}}
+                    </v-flex>
+                    <v-flex 
+                      xs12
+                      pa-15
+                      :style="{backgroundColor: project.imgSide.backgroundColor}"
+                    >
+                      <v-img
+                        :src="project.imgSide.imageSrc"
+                      />
+                    </v-flex>
+                  </v-layout>
+                </v-flex>
                 <v-flex 
-                  xs12
-                  :style="{background: $vuetify.theme.themes.dark.primary}"
-                  class="primaryText--text text-h6 font-weight-dark align-self-start text-center py-2"
+                  lg6 xs12 
                 >
-                  {{project.projectName}}
-                </v-flex>
-                <v-flex xs12 pa-5>
-                  {{ project.textSide.message }}
-                </v-flex>
-                <v-flex xs12 px-5>
-                  <p>
-                    Local: {{ project.textSide.projectHosted}}
-                  </p>
-                </v-flex>
-                <v-flex v-if="project.textSide.buttonGoTo != null" class="text-center" xs12>
-                  <v-btn v-on:click="redirectPage(project.textSide.buttonGoTo)">
-                    Preview Project
-                  </v-btn>
+                  <v-layout
+                    row wrap
+                    :class="cardSize.textSize"
+                    :style="{color: project.textSide.textColor}"
+                    class="font-weight-bold"
+                  >
+                    <v-flex 
+                      xs12
+                      :style="{background: $vuetify.theme.themes.dark.primary}"
+                      class="primaryText--text text-h6 font-weight-dark align-self-start text-center py-2"
+                      v-if="!$vuetify.breakpoint.lgAndUp"
+                    >
+                      {{project.projectName}}
+                    </v-flex>
+                    <v-flex xs12 py-5 px-15>
+                      <p> {{ project.textSide.message }} </p>
+                      <p> Local: {{ project.textSide.projectHosted}} </p>
+                    </v-flex>
+                    <v-flex v-if="project.textSide.buttonGoTo != null" class="text-center" xs12>
+                      <v-btn v-on:click="redirectPage(project.textSide.buttonGoTo)">
+                        Preview Project
+                      </v-btn>
+                    </v-flex>
+                  </v-layout>
                 </v-flex>
               </v-layout>
-            </v-flex>
-          </v-layout>
-        </v-sheet>
-      </v-carousel-item>
-    </v-carousel>
-  </v-card>
+            </v-sheet>
+          </v-carousel-item>
+        </v-carousel>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 <script>
   import cyberImage from "@/assets/projectsImg/CyberSource.svg"

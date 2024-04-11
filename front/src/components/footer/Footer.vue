@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import FooterImages from "./FooterImages.vue";
+import FooterImages from "@/components/footer/FooterImages.vue";
 export default {
   name: "FooterTeixa",
   components: {
