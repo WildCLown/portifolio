@@ -1,10 +1,16 @@
 <template>
-  <v-layout ma-8 row wrap>
-    <v-flex lg2 xs12 pr-2>
-      <image-area class="justify-end" :class="(this.$vuetify.breakpoint.lgAndUp? 'justify-end' : 'justify-center')"/>
+  <v-layout row wrap>
+    <v-flex 
+      lg3 
+      xs12
+      :class="{'pb-3': !$vuetify.breakpoint.lgAndUp,'pr-2' : $vuetify.breakpoint.lgAndUp}"
+    >
+      <image-area  
+        :class="{'justify-center': !$vuetify.breakpoint.lgAndUp,'justify-end' : $vuetify.breakpoint.lgAndUp}"
+      />
     </v-flex>
     <v-flex
-      lg10
+      lg9
       xs12
       class="
         blackText--text
@@ -15,34 +21,37 @@
         module-border-wrap
       "
     >
-    <v-layout row wrap class="module" ref="informationFormated">
+    <v-layout
+      row wrap
+      pa-6
+      class="module"
+      fill-height
+      ref="informationFormated" 
+      justify-start
+    >
+      <v-flex xs12 pb-2>
+        {{ informationText }}
+      </v-flex>
+      <v-flex xs12 style="color: #6CCDFD">
+        BackEnd:
+      </v-flex>
+      <v-flex xs12 pb-2>
+        {{ backEndStacks }}
+      </v-flex>
+      <v-flex xs12 style="color: #E9B86E">
+        FrontEnd:
+      </v-flex>
+      <v-flex xs12 pb-2>
+        {{ frontEndStacks }}
+      </v-flex>
+      <v-flex xs12 pb-2>
+        {{ personalInfo }}
+      </v-flex>
+      <v-flex xs12 style="color: #89D358">
+        {{ linkedinPerson }}
+      </v-flex>
       <v-flex xs12>
-        <p>
-          {{ informationText }}
-        </p>
-        <p>
-          <span style="color: #6CCDFD">
-            BackEnd:
-          </span>
-          <span>
-            {{ backEndStacks }}
-          </span>
-          <span style="color: #E9B86E; padding-left: 30px">
-            FrontEnd:
-          </span>
-          <span>
-            {{ frontEndStacks }}
-          </span>
-        </p>
-        <p>
-          {{ personalInfo }}
-        </p>
-        <p>
-          <span style="color: #89D358">
-            {{linkedinPerson}}
-          </span>
-          "{{ linkedinDescribe }}"
-        </p>
+        "{{ linkedinDescribe }}"
       </v-flex>
     </v-layout>
     </v-flex>
@@ -69,17 +78,14 @@ export default {
 };
 </script>
 <style scoped>
-.module-border-wrap {
-  position: relative;
-  background: linear-gradient(to left, #a01620, #041350);
-  border-radius: 10px 30px;
-  padding: 3px;
-}
-.module {
-  width: 100%;
-  height: 100%;
-  background: #222;
-  color: white;
-  padding: 2rem;
-}
+  .module-border-wrap {
+    position: relative;
+    background: linear-gradient(to left, #a01620, #041350);
+    border-radius: 10px 30px;
+    padding: 3px;
+  }
+  .module {
+    background: #222;
+    color: white;
+  }
 </style>

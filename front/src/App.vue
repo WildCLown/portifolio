@@ -9,8 +9,17 @@
     </v-layout>
     <v-layout row wrap justify-center align-center mt-12>
       <v-flex xs12 v-show="definedProject == project['portifolio']">
-        <personal-info/>
-        <projects-slider/>
+        <v-layout row wrap>
+          <v-flex xs12 py-8 px-8>
+            <personal-info/>
+          </v-flex>
+          <v-flex xs12 pb-8 px-8>
+            <projects-slider/>
+          </v-flex>
+          <v-flex xs12 pb-8 px-8>
+            <mail-me/>
+          </v-flex>
+        </v-layout>
       </v-flex>
       <v-flex xs12 v-show="definedProject == project['bezierCurves']">
         <bezier-curves />
@@ -24,12 +33,13 @@
 </template>
 
 <script>
-import HeaderTeixa from "@/components/Header.vue";
-import FooterTeixa from "@/components/Footer.vue";
-import PersonalInfo from "@/components/PersonalInfo.vue";
-import ProjectsSlider from '@/components/projects-slider/ProjectsSlider.vue';
-import BezierCurves from '@/components/projects-html/BezierCurves.vue';
-import MailSignature from '@/components/projects-html/MailSignature.vue';
+import HeaderTeixa from "@/components/header/Header.vue";
+import FooterTeixa from "@/components/footer/Footer.vue";
+import PersonalInfo from "@/components/personal-info/PersonalInfo.vue";
+import ProjectsSlider from '@/components/personal-info/ProjectsSlider.vue';
+import MailMe from '@/components/personal-info/MailMe.vue';
+import BezierCurves from '@/components/projects/BezierCurves.vue';
+import MailSignature from '@/components/projects/MailSignature.vue';
 export default {
   name: "App",
 
@@ -40,6 +50,7 @@ export default {
     ProjectsSlider,
     BezierCurves,
     MailSignature,
+    MailMe
   },
 
   data: () => ({
