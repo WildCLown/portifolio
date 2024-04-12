@@ -5,14 +5,12 @@
       class="align-center justify-space-between"
       dark
       :style="{background: $vuetify.theme.themes.dark.primary, position: 'fixed', zIndex: 99999, width: '100%'}"
-      py-1
     >
-      <v-flex lg5 xs10 py-1>
+      <v-flex lg4 xs10 py-1>
         <v-layout row wrap class="align-center">
           <v-flex px-2 lg1 xs2 class="align-center">
             <v-img
               contain
-              style="width: 80%"
               :src="require('@/assets/icons/GT.png')"
             />
           </v-flex>
@@ -27,46 +25,48 @@
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex py-1 px-5 lg7 v-if="this.$vuetify.breakpoint.lgAndUp">
+      <v-flex lg6 v-if="this.$vuetify.breakpoint.lgAndUp">
         <v-layout row wrap text-right>
           <v-flex class="text-center" xs3>
-            <v-btn 
+            <v-btn
+              block 
               color="primary"
               large
               v-on:click="setProject(0)"
+              class="primaryText--text text-h6 font-weight-bold"
              >
-              <label class="primaryText--text text-h4 font-weight-light">
-                Home
-              </label>
+              Home
             </v-btn>
           </v-flex>
           <v-flex class="text-center" xs3>
             <v-btn
+              block
               color="primary"
               large
               v-bind:href="resumeLink"
+              class="primaryText--text text-h6 font-weight-bold"
               target="_blank"
             >
-              <label class="primaryText--text text-h4 font-weight-light">
-                Resume
-              </label>
+              Resume
             </v-btn>
           </v-flex>
           <v-flex xs3>
             <projects-router 
+              block
               color="primary" 
               large
               @set-project="setProject"
             />
           </v-flex>
           <v-flex class="text-center" xs3>
-            <v-btn color="primary" large>
-              <label
-                class="primaryText--text text-h4 font-weight-light"
-                v-on:click="toBottom"
-              >
-                Contact me
-              </label>
+            <v-btn
+              block 
+              color="primary"
+              large
+              class="primaryText--text text-h6 font-weight-bold"
+              v-on:click="toBottom"
+            >
+              Contact me
             </v-btn>
           </v-flex>
         </v-layout>
@@ -89,28 +89,28 @@
           <v-list color="primary">
             <v-list-item class="justify-center">
               <v-btn
+                block
                 v-on:click="setProject(0)"
                 color="primary"
+                class="primaryText--text font-weight-light"
               >
-                <label class="primaryText--text font-weight-light">
-                  Home
-                </label>
+                Home
               </v-btn>
             </v-list-item>
             <v-list-item class="justify-center">
               <v-btn
+                block
                 v-bind:href="resumeLink"
                 target="_blank"
                 color="primary"
+                class="primaryText--text font-weight-light"
               >
-                <label class="primaryText--text font-weight-light">
-                  Resume
-                </label>
+                Resume
               </v-btn>
             </v-list-item>
             <v-list-item>
               <v-flex>
-                <projects-router 
+                <projects-router
                 color="primary" 
                 large d-flex
                 @set-project="setProject"
@@ -118,12 +118,14 @@
               </v-flex>
             </v-list-item>
             <v-list-item>
-              <v-btn color="primary" large v-on:click="toBottom">
-                <label
-                  class="primaryText--text font-weight-light"
-                >
-                  Contact me
-                </label>
+              <v-btn 
+                block 
+                class="primaryText--text font-weight-light"
+                color="primary" 
+                large 
+                v-on:click="toBottom"
+              >
+                Contact me
               </v-btn>
             </v-list-item>
           </v-list>

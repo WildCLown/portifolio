@@ -11,7 +11,8 @@ export default new Vuetify({
         primary: '#000d41',
         secondary: '#e9c227',
         blackText: '#212121',
-        primaryText: '#06afab'
+        primaryText: '#06afab',
+        textBoard: '#222'
       },
     },
   },

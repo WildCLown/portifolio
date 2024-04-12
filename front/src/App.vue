@@ -16,7 +16,7 @@
           <v-flex xs12 pb-8 px-8>
             <projects-slider/>
           </v-flex>
-          <v-flex xs12>
+          <v-flex xs12 pb-8 px-8>
             <mail-me/>
           </v-flex>
         </v-layout>

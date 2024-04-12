@@ -2,7 +2,7 @@
   <v-layout>
     <v-flex xs12 class="module-border-wrap">
       <v-img
-        class="xs-12 roundedImg"
+        class="roundedImg"
         contain
         :src="require('@/assets/Teixa.jpg')"
       />

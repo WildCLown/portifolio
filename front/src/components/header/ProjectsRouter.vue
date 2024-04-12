@@ -3,15 +3,16 @@
     <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          block
           color="primary"
           dark
           large
           v-bind="attrs"
           v-on="on"
+          :class=projecClassProps
+          class="font-weight-bold"
         >
-            <label :class=projecClassProps>
-                Projects
-            </label>
+          Projects
         </v-btn>
       </template>
       <v-list color="primary">
@@ -21,8 +22,9 @@
           class="justify-center"
         >
           <v-btn
+            block
             color="primary"
-            class="clickable primaryText--text font-weight-light"
+            class="clickable primaryText--text font-weight-bold"
             v-on:click="setProject(index+1)"
             :disabled="isProjectPermited(item.desktopOnly)"
           >
@@ -60,7 +62,7 @@
       projecClassProps: function() {
         let propClass = ['primaryText--text','font-weight-light']
         if(this.$vuetify.breakpoint.lgAndUp){
-          propClass.push('text-h4')
+          propClass.push('text-h6')
         }
         return propClass.join(' ')
       },

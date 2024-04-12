@@ -1,17 +1,16 @@
 <template>
   <v-layout row wrap>
     <v-flex 
-      lg2 
+      lg3 
       xs12
       :class="{'pb-3': !$vuetify.breakpoint.lgAndUp,'pr-2' : $vuetify.breakpoint.lgAndUp}"
-      pr-2
     >
       <image-area  
         :class="{'justify-center': !$vuetify.breakpoint.lgAndUp,'justify-end' : $vuetify.breakpoint.lgAndUp}"
       />
     </v-flex>
     <v-flex
-      lg10
+      lg9
       xs12
       class="
         blackText--text
@@ -22,7 +21,14 @@
         module-border-wrap
       "
     >
-    <v-layout row wrap class="module" ref="informationFormated" justify-start>
+    <v-layout
+      row wrap
+      pa-6
+      class="module"
+      fill-height
+      ref="informationFormated" 
+      justify-start
+    >
       <v-flex xs12 pb-2>
         {{ informationText }}
       </v-flex>
@@ -72,17 +78,14 @@ export default {
 };
 </script>
 <style scoped>
-.module-border-wrap {
-  position: relative;
-  background: linear-gradient(to left, #a01620, #041350);
-  border-radius: 10px 30px;
-  padding: 3px;
-}
-.module {
-  width: 100%;
-  height: 100%;
-  background: #222;
-  color: white;
-  padding: 2rem;
-}
+  .module-border-wrap {
+    position: relative;
+    background: linear-gradient(to left, #a01620, #041350);
+    border-radius: 10px 30px;
+    padding: 3px;
+  }
+  .module {
+    background: #222;
+    color: white;
+  }
 </style>

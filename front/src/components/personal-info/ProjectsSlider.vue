@@ -1,10 +1,9 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xs12>
+  <v-layout row wrap justify-center>
+    <v-flex xs12 lg6>
       <v-card
         elevation="24"
         class="mx-auto"
-        :width="cardSize.width"
       >
         <v-carousel
           :continuous="true"
@@ -185,7 +184,6 @@
       cardSize: {
         get: function() {
           return { 
-            width: this.$vuetify.breakpoint.lgAndUp? "50%" : "100%",
             textSize: this.$vuetify.breakpoint.lgAndUp? 'text-h6' : 'subtitle-1'
           }
         }
