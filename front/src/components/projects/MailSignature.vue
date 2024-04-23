@@ -17,13 +17,13 @@
                     Gerar assinatura
                 </v-flex>
                 <v-flex xs6 py-6>
-                    <v-btn v-if="photoAdded">
+                    <v-btn v-show="photoAdded">
                         <v-icon left>
                             mdi-delete
                         </v-icon>
                         Remover foto
                     </v-btn>
-                    <v-btn v-else>
+                    <v-btn v-show="!photoAdded">
                         <v-icon left>
                             mdi-plus
                         </v-icon>
@@ -68,16 +68,38 @@
                 </v-flex>
             </v-layout>
         </v-flex>
-        <v-flex xs12 lg5 pa-2 ma-1 class="formArea">
-            <v-layout row wrap class="text-center">
+        <v-flex xs12 lg5 pa-2 class="formArea">
+            <v-layout row wrap class="text-center" align-center>
                 <v-flex 
-                    id="outputImg" 
-                    xs12
-                    style="justify-content: center;"
+                    id="outputImg"
+                    ref="outputImg"
+                    xs11
+                    pa-3
                     :style="brightStyle"
-                    v-html="html85Based"
-                />
-                <v-flex xs12>
+                >
+                    <table>
+                        <tr>
+                            <th>
+                                <img :src="base64Photo" style="width: 100px; background-color: black; border-radius: 50%">
+                            </th>
+                            <th>
+                                <img :src="base64Src" style="width: 100px;">
+                            </th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{name}}</td>
+                        </tr>
+                        <tr>
+                            <td> {{ocupation}} </td>
+                            <td> {{team}} </td>
+                        </tr>
+                        <tr>
+                            <td>{{phoneNumber}}</td>
+                            <td>{{communicationTool}}</td>
+                        </tr>
+                    </table>
+                </v-flex>
+                <v-flex xs1>
                     <v-btn fab v-on:click="changeBright()">
                         <v-icon>mdi-brightness-6</v-icon>
                     </v-btn>
@@ -85,7 +107,7 @@
                 <v-flex xs12 my-8 mb-8 mx-3>
                     <v-btn
                         block
-                        v-on:click="doCopyTable('outputImg')"
+                        v-on:click="doCopyForOutlook('outputImg')"
                     >
                         Copiar para Outlook
                     </v-btn>
@@ -94,7 +116,7 @@
                 <v-flex xs12 my-8 mx-3> 
                     <v-btn 
                         block
-                        v-on:click="doCopyText()"
+                        v-on:click="doCopyForThunderBird('outputImg')"
                     >
                         Copiar para ThunderBird
                     </v-btn>
@@ -106,8 +128,8 @@
 
 <script>
 import pepeGod from "@/assets/projectsImg/pepe-god.jpg"
-import pepe85 from "@/assets/projectsImg/pepe85.png"
-import pepe264 from "@/assets/projectsImg/pepe264.png"
+import wildclown from "@/assets/projectsImg/WildClown.png"
+import pepePhoto from "@/assets/projectsImg/pepe85.png"
 
 
 export default {
@@ -120,32 +142,30 @@ export default {
         team: "",
         phoneNumber: "+55 81",
         communicationTool: "+55 11 4002-8922",
-        email: "lil.guyextreme@companymail.com.br",
-        companyPage: "https://wildclown.github.io/portifolio/",
         pepeGod: pepeGod,
-        pepe85: pepe85,
-        pepe264: pepe264,
-        base64Image85: "",
-        base64Image264: "",
+        companyBanner: wildclown,
+        pepePhoto: pepePhoto,
+        base64Src: "",
+        base64Photo: "",
         photoAdded: false,
         bright: true,
     };
   },
   mounted() {
-    fetch(pepe85)
+    fetch(wildclown)
     .then(res => res.blob())
     .then(async blob => {
-        const file = new File([blob], 'pepeGod.png', blob)
+        const file = new File([blob], 'wildclown.png', blob)
         let response = await this.fileToBase64(file)
-        this.base64Image85 = `<img src="data:image/png;base64,${response}" style="padding-right: 5px;">`;
+        this.base64Src = `data:image/png;base64,${response}`
     })
 
-    fetch(pepe264)
+    fetch(pepePhoto)
     .then(res => res.blob())
     .then(async blob => {
-        const file = new File([blob], 'pepeGod.png', blob)
+        const file = new File([blob], 'pepePhoto.png', blob)
         let response = await this.fileToBase64(file)
-        this.base64Image264 = `<img src="data:image/png;base64,${response}" style="width: 85px;">`;
+        this.base64Photo = `data:image/png;base64,${response}`
     })
   },
   computed: {
@@ -156,42 +176,12 @@ export default {
             return 'background-color: #222;'
         }
     },
-    html264Based: function() {
-        return this.makeHtmlString(this.base64Image264, true)
-    },
-    html85Based: function() {
-        return this.makeHtmlString(this.base64Image85)
-    }
   },
   methods: {
     createImage(file) {
         const reader = new FileReader();
         reader.onloadend = () => (console.log(reader.result));
         reader.readAsDataURL(file.target.files[0]);
-    },
-    makeHtmlString(base64StringImg, isOutlook = false) {
-        return (
-            "<table id=\"assinaturaMV\" style=\"border: 1px solid black" +
-            (isOutlook? ";margin: 0 auto; text-align:center\">" : "\">") +
-            "<th style=\"padding-right: 15px;border-right: 2px solid #595959;\">"+
-            base64StringImg +
-            "</th>"+
-            "<th style=\"text-align: left;padding-left: 15px;width: 300px;\">"+
-            "<div style=\"font-size:12.0pt;font-family:Bahnschrift;color:black;\">"+
-            "<b>" + this.name + "</b>"+
-            "</div>"+
-            "<div style=\"font-size:11pt;font-family:Bahnschrift;color:black;display: inline-block;font-weight: normal;\">"+
-            (this.phoneNumber   == "+55 81" ? "" : "Mobile: " + this.phoneNumber + "<br>") +
-            "Corporate: " + this.companyPhone + "<br>" +
-            "<a href=\"mailto:"+ this.email + "\" style=\"color:#17365D\">" + this.email + "</a><br>"+
-            "<a href=\"" + this.companyPage + "\" style=\"color:#17365D\">" + this.companyPage + "</a><br>" +
-            "</div>"+
-            "<div style=\"display: inline;\">"+
-            "<a href=\"" + this.companyPage + "\" target=\"_blank\"></a><br>" +
-            "</div>" +
-            "</th>" +
-            "</table>"
-        )
     },
     fileToBase64(file) {
         return new Promise((resolve, reject) => {
@@ -212,10 +202,11 @@ export default {
     changeBright(){
         this.bright = !this.bright
     },
-    doCopyText() {
-        navigator.clipboard.writeText(this.html264Based)
+    doCopyForThunderBird(id) {
+        let element = document.getElementById(id).innerHTML
+        navigator.clipboard.writeText(element)
     },
-    doCopyTable(id) {
+    doCopyForOutlook(id) {
         var sel, range;
         var el = document.getElementById(id); //get element id
         if (window.getSelection && document.createRange) { //Browser compatibility
@@ -237,15 +228,11 @@ export default {
             }
         }
         setTimeout(() => { document.execCommand('copy'); }, 500);
-        }
+    }
   }
 };
 </script>
 <style scoped>
-    #outputImg{
-        background-color: white;
-    }
-
     .formArea{
         background-color: #313131;
         box-shadow: 3px 3px 2px rgb(54, 54, 54);
