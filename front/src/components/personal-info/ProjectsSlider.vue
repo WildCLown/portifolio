@@ -54,17 +54,17 @@
                   <v-card
                     :class="cardSize.textSize"
                     :style="{color: project.textSide.textColor}"
-                    class="font-weight-bold overflow-y-auto"
+                    class="font-weight-bold overflow-y-auto hiddenScroll"
                     max-height="400"
                     v-scroll.self="onScroll"
                   >
                     <v-banner
-                      :style="{background: $vuetify.theme.themes.dark.primary}"
+                      :style="{background: $vuetify.theme.themes.dark.primary, color: project.textSide.textColor}"
                       class="primaryText--text text-h6 font-weight-dark align-self-start text-center py-2"
                       v-if="!$vuetify.breakpoint.lgAndUp"
                       sticky
                     >
-                      Scroll Me - Method invoked
+                      {{project.projectName}}
                     </v-banner>
                     <v-card-text
                       :style="{background: project.textSide.backgroundColor}"
@@ -106,11 +106,13 @@
               backgroundColor: '#1E6F50',
               textColor: "white",
               message: [
-                "Stoolit was a game developed which intends to provide user",
+                "Stoolit was a college game developed which intends to provide user",
                 "an experience not only in main screen view, but also",
-                "in it's controller, providing mini-games and challenges when",
+                "in it's controller, showing mini-games and challenges when",
                 "interacting with objects through the gameplay.",
-                "An Unity project with Air console developed along with college friends."
+                "Inspired by Time-attack games, and Payday, Stoolit is an Unity project",
+                "using Air console API, being it developed in C# and JS/HTML",
+                "along with friends in about 2 months."
               ].join(" "),
               projectHosted: "Private project",
               buttonGoTo: "https://www.youtube.com/watch?v=ePslfyGNGEk&t"
@@ -214,5 +216,10 @@
   .v-sheet.v-card {
       border-radius: 0px;
   }
+
+  .v-sheet.v-card .theme--dark.v-banner.v-sheet{
+    box-shadow: 0px 0px 0px 0px;
+  }
+
 </style>
   
