@@ -9,6 +9,7 @@
           :continuous="true"
           :show-arrows="true"
           hide-delimiters
+          height="400"
         >
           <v-carousel-item
             v-for="(project, i) in projects"
@@ -18,7 +19,6 @@
             <v-sheet
               :color="project.textSide.backgroundColor"
               tile
-              style="height: 100%;"
             >
               <v-layout raw wrap fill-height>
                 <v-flex lg6 xs12 v-if="$vuetify.breakpoint.lgAndUp">
@@ -51,30 +51,35 @@
                 <v-flex 
                   lg6 xs12 
                 >
-                  <v-layout
-                    row wrap
+                  <v-card
                     :class="cardSize.textSize"
                     :style="{color: project.textSide.textColor}"
-                    class="font-weight-bold"
+                    class="font-weight-bold overflow-y-auto"
+                    max-height="400"
+                    v-scroll.self="onScroll"
                   >
-                    <v-flex 
-                      xs12
+                    <v-banner
                       :style="{background: $vuetify.theme.themes.dark.primary}"
                       class="primaryText--text text-h6 font-weight-dark align-self-start text-center py-2"
                       v-if="!$vuetify.breakpoint.lgAndUp"
+                      sticky
                     >
-                      {{project.projectName}}
-                    </v-flex>
-                    <v-flex xs12 py-5 px-15>
-                      <p> {{ project.textSide.message }} </p>
-                      <p> Local: {{ project.textSide.projectHosted}} </p>
-                    </v-flex>
-                    <v-flex v-if="project.textSide.buttonGoTo != null" class="text-center" xs12>
-                      <v-btn v-on:click="redirectPage(project.textSide.buttonGoTo)">
-                        Preview Project
-                      </v-btn>
-                    </v-flex>
-                  </v-layout>
+                      Scroll Me - Method invoked
+                    </v-banner>
+                    <v-card-text
+                      :style="{background: project.textSide.backgroundColor}"
+                    >
+                      <div class="py-5 px-15">
+                        <p> {{ project.textSide.message }} </p>
+                        <p> Local: {{ project.textSide.projectHosted}} </p>
+                      </div>
+                      <div class="text-center">
+                        <v-btn v-on:click="redirectPage(project.textSide.buttonGoTo)">
+                          Preview Project
+                        </v-btn>
+                      </div>
+                    </v-card-text>
+                  </v-card>
                 </v-flex>
               </v-layout>
             </v-sheet>
@@ -204,6 +209,10 @@
 
   .hiddenScroll::-webkit-scrollbar {
     display: none;
+  }
+  
+  .v-sheet.v-card {
+      border-radius: 0px;
   }
 </style>
   
