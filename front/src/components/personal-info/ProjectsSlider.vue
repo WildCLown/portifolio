@@ -51,21 +51,24 @@
                 <v-flex 
                   lg6 xs12 
                 >
+                <v-layout
+                  row wrap
+                  :style="{color: project.textSide.textColor}"  
+                >
+                  <v-flex 
+                      xs12
+                      :style="{background: $vuetify.theme.themes.dark.primary}"
+                      class="primaryText--text text-h6 font-weight-dark align-self-start text-center py-2"
+                      v-if="!$vuetify.breakpoint.lgAndUp"
+                    >
+                      {{project.projectName}}
+                  </v-flex>
                   <v-card
                     :class="cardSize.textSize"
                     :style="{color: project.textSide.textColor}"
                     class="font-weight-bold overflow-y-auto hiddenScroll"
-                    max-height="400"
-                    v-scroll.self="onScroll"
+                    max-height="350"
                   >
-                    <v-banner
-                      :style="{background: $vuetify.theme.themes.dark.primary, color: project.textSide.textColor}"
-                      class="primaryText--text text-h6 font-weight-dark align-self-start text-center py-2"
-                      v-if="!$vuetify.breakpoint.lgAndUp"
-                      sticky
-                    >
-                      {{project.projectName}}
-                    </v-banner>
                     <v-card-text
                       :style="{background: project.textSide.backgroundColor}"
                     >
@@ -80,6 +83,7 @@
                       </div>
                     </v-card-text>
                   </v-card>
+                </v-layout>
                 </v-flex>
               </v-layout>
             </v-sheet>
