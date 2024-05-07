@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: |
           cd front
-          yarn build
+          yarn build:production
           mv ./dist ../
       - name: Compact Static Files
         shell: bash
