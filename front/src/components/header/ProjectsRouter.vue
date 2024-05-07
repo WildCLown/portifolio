@@ -1,6 +1,10 @@
 <template>
   <div class="text-center">
-    <v-menu offset-y>
+    <v-menu 
+      offset-y
+      :offset-x="!$vuetify.breakpoint.lgAndUp"
+      :left="!$vuetify.breakpoint.lgAndUp"
+    >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           block
