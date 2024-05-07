@@ -9,6 +9,7 @@
           :continuous="true"
           :show-arrows="true"
           hide-delimiters
+          :height="sliderSize"
         >
           <v-carousel-item
             v-for="(project, i) in projects"
@@ -18,7 +19,6 @@
             <v-sheet
               :color="project.textSide.backgroundColor"
               tile
-              style="height: 100%;"
             >
               <v-layout raw wrap fill-height>
                 <v-flex lg6 xs12 v-if="$vuetify.breakpoint.lgAndUp">
@@ -51,11 +51,15 @@
                 <v-flex 
                   lg6 xs12 
                 >
-                  <v-layout
-                    row wrap
+                <v-layout
+                  row wrap
+                  :style="{color: project.textSide.textColor}"  
+                >
+                  <v-card
                     :class="cardSize.textSize"
                     :style="{color: project.textSide.textColor}"
-                    class="font-weight-bold"
+                    class="font-weight-bold overflow-y-auto hiddenScroll"
+                    :max-height="sliderSize"
                   >
                     <v-flex 
                       xs12
@@ -64,17 +68,26 @@
                       v-if="!$vuetify.breakpoint.lgAndUp"
                     >
                       {{project.projectName}}
-                    </v-flex>
-                    <v-flex xs12 py-5 px-15>
-                      <p> {{ project.textSide.message }} </p>
-                      <p> Local: {{ project.textSide.projectHosted}} </p>
-                    </v-flex>
-                    <v-flex v-if="project.textSide.buttonGoTo != null" class="text-center" xs12>
-                      <v-btn v-on:click="redirectPage(project.textSide.buttonGoTo)">
-                        Preview Project
-                      </v-btn>
-                    </v-flex>
-                  </v-layout>
+                  </v-flex>
+                  
+                    <v-card-text
+                      :style="{background: project.textSide.backgroundColor}"
+                    >
+                      <div 
+                        class="px-15 text-subtitle-1"
+                        :style="{color: project.textSide.textColor}"
+                      >
+                        <p> {{ project.textSide.message }} </p>
+                        <p> Local: {{ project.textSide.projectHosted}} </p>
+                      </div>
+                      <div class="text-center">
+                        <v-btn v-on:click="redirectPage(project.textSide.buttonGoTo)">
+                          Preview Project
+                        </v-btn>
+                      </div>
+                    </v-card-text>
+                  </v-card>
+                </v-layout>
                 </v-flex>
               </v-layout>
             </v-sheet>
@@ -94,6 +107,7 @@
     
     data() {
       return {
+        sliderSize: 400,
         projects: [
           {
             projectName: 'Stoolit',
@@ -101,11 +115,13 @@
               backgroundColor: '#1E6F50',
               textColor: "white",
               message: [
-                "Stoolit was a game developed which intends to provide user",
+                "Stoolit was a college game developed which intends to provide user",
                 "an experience not only in main screen view, but also",
-                "in it's controller, providing mini-games and challenges when",
+                "in it's controller, showing mini-games and challenges when",
                 "interacting with objects through the gameplay.",
-                "An Unity project with Air console developed along with college friends."
+                "Inspired by Time-attack games, and Payday, Stoolit is an Unity project",
+                "using Air console API, being it developed in C# and JS/HTML",
+                "along with friends in about 2 months."
               ].join(" "),
               projectHosted: "Private project",
               buttonGoTo: "https://www.youtube.com/watch?v=ePslfyGNGEk&t"
@@ -205,5 +221,14 @@
   .hiddenScroll::-webkit-scrollbar {
     display: none;
   }
+  
+  .v-sheet.v-card {
+      border-radius: 0px;
+  }
+
+  .v-sheet.v-card .theme--dark.v-banner.v-sheet{
+    box-shadow: 0px 0px 0px 0px;
+  }
+
 </style>
   
