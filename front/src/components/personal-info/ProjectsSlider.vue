@@ -9,7 +9,7 @@
           :continuous="true"
           :show-arrows="true"
           hide-delimiters
-          height="400"
+          :height="sliderSize"
         >
           <v-carousel-item
             v-for="(project, i) in projects"
@@ -59,7 +59,7 @@
                     :class="cardSize.textSize"
                     :style="{color: project.textSide.textColor}"
                     class="font-weight-bold overflow-y-auto hiddenScroll"
-                    max-height="400"
+                    :max-height="sliderSize"
                   >
                     <v-flex 
                       xs12
@@ -107,6 +107,7 @@
     
     data() {
       return {
+        sliderSize: 400,
         projects: [
           {
             projectName: 'Stoolit',
