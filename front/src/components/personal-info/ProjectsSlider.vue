@@ -55,7 +55,13 @@
                   row wrap
                   :style="{color: project.textSide.textColor}"  
                 >
-                  <v-flex 
+                  <v-card
+                    :class="cardSize.textSize"
+                    :style="{color: project.textSide.textColor}"
+                    class="font-weight-bold overflow-y-auto hiddenScroll"
+                    max-height="400"
+                  >
+                    <v-flex 
                       xs12
                       :style="{background: $vuetify.theme.themes.dark.primary}"
                       class="primaryText--text text-h6 font-weight-dark align-self-start text-center py-2"
@@ -63,16 +69,14 @@
                     >
                       {{project.projectName}}
                   </v-flex>
-                  <v-card
-                    :class="cardSize.textSize"
-                    :style="{color: project.textSide.textColor}"
-                    class="font-weight-bold overflow-y-auto hiddenScroll"
-                    max-height="350"
-                  >
+                  
                     <v-card-text
                       :style="{background: project.textSide.backgroundColor}"
                     >
-                      <div class="py-5 px-15">
+                      <div 
+                        class="px-15 text-subtitle-1"
+                        :style="{color: project.textSide.textColor}"
+                      >
                         <p> {{ project.textSide.message }} </p>
                         <p> Local: {{ project.textSide.projectHosted}} </p>
                       </div>
