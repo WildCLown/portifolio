@@ -35,11 +35,11 @@ jobs:
       - name: Install Dependencies
         shell: bash
         run: cd front && yarn install
-      - name: Install Dependencies
+      - name: Clean Cache
         shell: bash
         run: |
           cd front
-          yarn install
+          yarn cache clean
       - name: Build
         shell: bash
         run: |
