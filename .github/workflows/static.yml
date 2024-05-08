@@ -43,10 +43,13 @@ jobs:
       - name: Build
         shell: bash
         run: |
+          cd front
           yarn build
       - name: Move Built
         shell: bash
-        run: mv ./dist ../
+        run: |
+          cd front
+          mv ./dist ../
       - name: Compact Static Files
         shell: bash
         run: tar -czvf staticFolder.tar.gz ./dist
