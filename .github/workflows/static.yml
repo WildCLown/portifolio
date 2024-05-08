@@ -35,12 +35,18 @@ jobs:
       - name: Install Dependencies
         shell: bash
         run: cd front && yarn install
-      - name: Build N Move
+      - name: Install Dependencies
         shell: bash
         run: |
           cd front
+          yarn install
+      - name: Build
+        shell: bash
+        run: |
           yarn build
-          mv ./dist ../
+      - name: Move Built
+        shell: bash
+        run: mv ./dist ../
       - name: Compact Static Files
         shell: bash
         run: tar -czvf staticFolder.tar.gz ./dist
