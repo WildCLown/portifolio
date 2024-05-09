@@ -69,7 +69,7 @@
             </v-layout>
         </v-flex>
         <v-flex xs12 lg5 pa-2 class="formArea">
-            <v-layout row wrap class="text-center" align-center>
+            <v-layout row wrap align-center justify-center>
                 <v-flex 
                     id="outputImg"
                     ref="outputImg"
@@ -77,25 +77,35 @@
                     pa-3
                     :style="brightStyle"
                 >
-                    <table>
+                    <table id="tableTag" :style="centerTableStyle">
                         <tr>
-                            <th>
-                                <img :src="base64Photo" style="width: 100px; background-color: black; border-radius: 50%">
+                            <th style="background-color: black; border-radius: 50%; display: inline-flex">
+                                <img :src="base64Photo"/>
                             </th>
                             <th>
-                                <img :src="base64Src" style="width: 100px;">
+                                <img :src="base64Src">
                             </th>
                         </tr>
-                        <tr>
-                            <td colspan="2">{{name}}</td>
+                        <tr style="color: #0D517F; font-size: 24px; font-wieght: bold;">
+                            <td colspan="2">
+                                {{name}}
+                            </td>
                         </tr>
-                        <tr>
-                            <td> {{ocupation}} </td>
-                            <td> {{team}} </td>
+                        <tr style="color: #0D517F; font-size: 16px; font-wieght: bold; text-align: left;">
+                            <td style="padding-right: 6px"> 
+                                {{ocupation}} 
+                            </td>
+                            <td style="padding-left: 6px;"> 
+                                {{team}} 
+                            </td>
                         </tr>
-                        <tr>
-                            <td>{{phoneNumber}}</td>
-                            <td>{{communicationTool}}</td>
+                        <tr style="color: #4E4E4E; font-size: 14px; font-wieght: regular; text-align: left;">
+                            <td style="padding-right: 6px">
+                                {{phoneNumber}}
+                            </td>
+                            <td style="padding-left: 6px;">
+                                {{communicationTool}}
+                            </td>
                         </tr>
                     </table>
                 </v-flex>
@@ -107,7 +117,7 @@
                 <v-flex xs12 my-8 mb-8 mx-3>
                     <v-btn
                         block
-                        v-on:click="doCopyForOutlook('outputImg')"
+                        v-on:click="doCopyForOutlook('outputImg', 'tableTag')"
                     >
                         Copiar para Outlook
                     </v-btn>
@@ -138,9 +148,9 @@ export default {
   data() {
     return {
         name: "Batatoncio",
-        ocupation: "",
-        team: "",
-        phoneNumber: "+55 81",
+        ocupation: "Autonomous",
+        team: "Standalone",
+        phoneNumber: "+1 67 899-8212",
         communicationTool: "+55 11 4002-8922",
         pepeGod: pepeGod,
         companyBanner: wildclown,
@@ -149,6 +159,7 @@ export default {
         base64Photo: "",
         photoAdded: false,
         bright: true,
+        centerTableStyle: "margin-left: auto; margin-right: auto;"
     };
   },
   mounted() {
@@ -158,6 +169,11 @@ export default {
         const file = new File([blob], 'wildclown.png', blob)
         let response = await this.fileToBase64(file)
         this.base64Src = `data:image/png;base64,${response}`
+
+        this.resizeImage(this.base64Src, 120, 35).then((result) => {
+            this.base64Src = result;
+        });
+
     })
 
     fetch(pepePhoto)
@@ -166,6 +182,10 @@ export default {
         const file = new File([blob], 'pepePhoto.png', blob)
         let response = await this.fileToBase64(file)
         this.base64Photo = `data:image/png;base64,${response}`
+
+        this.resizeImage(this.base64Photo, 96, 96).then((result) => {
+            this.base64Photo = result;
+        });
     })
   },
   computed: {
@@ -178,11 +198,6 @@ export default {
     },
   },
   methods: {
-    createImage(file) {
-        const reader = new FileReader();
-        reader.onloadend = () => (console.log(reader.result));
-        reader.readAsDataURL(file.target.files[0]);
-    },
     fileToBase64(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -206,9 +221,11 @@ export default {
         let element = document.getElementById(id).innerHTML
         navigator.clipboard.writeText(element)
     },
-    doCopyForOutlook(id) {
-        var sel, range;
-        var el = document.getElementById(id); //get element id
+    doCopyForOutlook(id, tableId) {
+        let table = document.getElementById(tableId)
+        table.style = ""
+        let sel, range;
+        let el = document.getElementById(id); //get element id
         if (window.getSelection && document.createRange) { //Browser compatibility
         sel = window.getSelection();
         if(sel.toString() == ''){ //no text selection
@@ -227,7 +244,41 @@ export default {
                 range.select(); //make selection.
             }
         }
-        setTimeout(() => { document.execCommand('copy'); }, 500);
+        setTimeout(() => { 
+            document.execCommand('copy');
+            table.style = this.centerTableStyle;
+        }, 500);
+    
+    },
+    resizeImage(base64Str, maxWidth = 400, maxHeight = 350) {
+        return new Promise((resolve) => {
+            let img = new Image()
+            img.src = base64Str
+            img.onload = () => {
+            let canvas = document.createElement('canvas')
+            const MAX_WIDTH = maxWidth
+            const MAX_HEIGHT = maxHeight
+            let width = img.width
+            let height = img.height
+
+            if (width > height) {
+                if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width
+                width = MAX_WIDTH
+                }
+            } else {
+                if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height
+                height = MAX_HEIGHT
+                }
+            }
+            canvas.width = width
+            canvas.height = height
+            let ctx = canvas.getContext('2d')
+            ctx.drawImage(img, 0, 0, width, height)
+            resolve(canvas.toDataURL())
+            }
+        })
     }
   }
 };
