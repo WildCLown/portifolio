@@ -8,51 +8,68 @@
             backgroundRepeat: 'no-repeat',
             backgroundSize: '100%',
         }"
-        class="oldBody"
-        pa-15
+        px-6
+        py-15
     >
-        <v-flex xs11 lg5 pa-2 ma-1 class="formArea">
+        <v-flex xs12 lg5 class="formArea">
             <v-layout row wrap px-3>
-                <v-flex xs12 pt-3>
+                <v-flex xs12 py-3 class="signaturePrimaryText--text text-h6 font-weight-dark">
                     Gerar assinatura
                 </v-flex>
                 <v-flex xs6 py-6>
-                    <v-btn v-show="photoAdded">
+                    <v-btn v-show="photoAdded" color="signaturePrimary" class="photoButton" v-on:click="removeImage()">
                         <v-icon left>
                             mdi-delete
                         </v-icon>
                         Remover foto
                     </v-btn>
-                    <v-btn v-show="!photoAdded">
+                    <v-btn
+                        v-show="!photoAdded"
+                        color="signaturePrimary"
+                        class="photoButton"
+                        v-on:click="insertImage()"
+                    >
                         <v-icon left>
                             mdi-plus
                         </v-icon>
                         Adicionar foto
                     </v-btn>
+                    <v-file-input
+                        v-model="uploadedImage"
+                        ref="fileInput"
+                        v-show='false'
+                        accept="image/png, image/jpeg, image/bmp"
+                        label="File input"
+                        @change="processImage()"
+                    ></v-file-input>
                 </v-flex>
                 <v-flex xs12 lg12>
-                    <v-text-field 
+                    <v-text-field
+                        light 
                         label="Colaborador" 
                         v-model="name"
                         outlined
                     />
                 </v-flex>
                 <v-flex xs12 lg6 :class="{ 'pr-2' : this.$vuetify.breakpoint.lgAndUp }">
-                    <v-text-field 
+                    <v-text-field
+                        light 
                         label="Ocupação" 
                         v-model="ocupation"
                         outlined
                     />
                 </v-flex>
                 <v-flex xs12 lg6 :class="{ 'pl-2' : this.$vuetify.breakpoint.lgAndUp }">
-                    <v-text-field 
+                    <v-text-field
+                        light 
                         label="Time"
                         v-model="team"
                         outlined
                     />
                 </v-flex>
                 <v-flex xs12 lg6 :class="{ 'pr-2' : this.$vuetify.breakpoint.lgAndUp }">
-                    <v-text-field 
+                    <v-text-field
+                        light 
                         label="Celular"
                         v-model="phoneNumber"
                         placeholder="XX XXXXX-XXXX"
@@ -60,7 +77,8 @@
                     />
                 </v-flex>
                 <v-flex xs12 lg6 :class="{ 'pl-2' : this.$vuetify.breakpoint.lgAndUp }">
-                    <v-text-field 
+                    <v-text-field
+                        light 
                         label="Teams" 
                         v-model="communicationTool"
                         outlined
@@ -68,19 +86,36 @@
                 </v-flex>
             </v-layout>
         </v-flex>
-        <v-flex xs12 lg5 pa-2 class="formArea">
+        <v-flex 
+            xs12 
+            lg3 
+            py-16 
+            mt-2 
+            class="formArea"
+            :class="{ 
+                'ml-4' : this.$vuetify.breakpoint.lgAndUp,
+                'mt-2' : !this.$vuetify.breakpoint.lgAndUp
+            }"
+        >
             <v-layout row wrap align-center justify-center>
                 <v-flex 
                     id="outputImg"
                     ref="outputImg"
-                    xs11
+                    xs12
                     pa-3
                     :style="brightStyle"
                 >
                     <table id="tableTag" :style="centerTableStyle">
                         <tr>
                             <th style="background-color: black; border-radius: 50%; display: inline-flex">
-                                <img :src="base64Photo"/>
+                                <img
+                                    v-show="photoAdded"
+                                    :src="base64InputedPhoto"
+                                />
+                                <img
+                                    v-show="!photoAdded"
+                                    :src="base64BasePhoto"
+                                />
                             </th>
                             <th>
                                 <img :src="base64Src">
@@ -109,24 +144,32 @@
                         </tr>
                     </table>
                 </v-flex>
-                <v-flex xs1>
-                    <v-btn fab v-on:click="changeBright()">
-                        <v-icon>mdi-brightness-6</v-icon>
-                    </v-btn>
+                <v-flex xs12 text-center>
+                    <v-layout row wrap align-center justify-center>
+                        <v-flex xs12 lg2 py-3>
+                            <v-btn fab v-on:click="changeBright()" color="signaturePrimary" class="photoButton" small>
+                                <v-icon>mdi-brightness-6</v-icon>
+                            </v-btn>
+                        </v-flex>
+                        <v-flex xs10 lg8>
+                            <v-btn
+                                block
+                                v-on:click="doCopyForOutlook('outputImg', 'tableTag')"
+                                color="signaturePrimary"
+                                class="photoButton"
+                            >   
+                                <v-icon>mdi-content-copy</v-icon>
+                                Copiar para Outlook
+                            </v-btn>
+                        </v-flex>
+                    </v-layout>
                 </v-flex>
-                <v-flex xs12 my-8 mb-8 mx-3>
-                    <v-btn
-                        block
-                        v-on:click="doCopyForOutlook('outputImg', 'tableTag')"
-                    >
-                        Copiar para Outlook
-                    </v-btn>
-                </v-flex>
-
-                <v-flex xs12 my-8 mx-3> 
+                <v-flex xs12 v-if="false">
                     <v-btn 
                         block
                         v-on:click="doCopyForThunderBird('outputImg')"
+                        color="signaturePrimary"
+                        class="photoButton"
                     >
                         Copiar para ThunderBird
                     </v-btn>
@@ -138,9 +181,8 @@
 
 <script>
 import pepeGod from "@/assets/projectsImg/pepe-god.jpg"
-import wildclown from "@/assets/projectsImg/WildClown.png"
-import pepePhoto from "@/assets/projectsImg/pepe85.png"
-
+import companySignature from "@/assets/projectsImg/mailSignature/signature.png"
+import pepeImage from "@/assets/projectsImg/pepe85.png"
 
 export default {
   name: "MailSignature",
@@ -153,42 +195,44 @@ export default {
         phoneNumber: "+1 67 899-8212",
         communicationTool: "+55 11 4002-8922",
         pepeGod: pepeGod,
-        companyBanner: wildclown,
-        pepePhoto: pepePhoto,
+        companyBanner: companySignature,
+        pepeImage: pepeImage,
+        uploadedImage: null,
         base64Src: "",
-        base64Photo: "",
-        photoAdded: false,
+        base64BasePhoto: "",
+        base64InputedPhoto: "",
         bright: true,
         centerTableStyle: "margin-left: auto; margin-right: auto;"
     };
   },
   mounted() {
-    fetch(wildclown)
+    fetch(pepeImage)
     .then(res => res.blob())
     .then(async blob => {
-        const file = new File([blob], 'wildclown.png', blob)
+        const file = new File([blob], 'pepeImage.png', blob)
         let response = await this.fileToBase64(file)
-        this.base64Src = `data:image/png;base64,${response}`
-
-        this.resizeImage(this.base64Src, 120, 35).then((result) => {
-            this.base64Src = result;
+        this.base64BasePhoto = `data:image/png;base64,${response}`
+        this.resizeImage(this.base64BasePhoto, 96, 96).then((result) => {
+            this.base64BasePhoto = result;
         });
-
     })
 
-    fetch(pepePhoto)
+    fetch(companySignature)
     .then(res => res.blob())
     .then(async blob => {
-        const file = new File([blob], 'pepePhoto.png', blob)
+        const file = new File([blob], 'companySignature.png', blob)
         let response = await this.fileToBase64(file)
-        this.base64Photo = `data:image/png;base64,${response}`
-
-        this.resizeImage(this.base64Photo, 96, 96).then((result) => {
-            this.base64Photo = result;
+        this.base64Src = `data:image/png;base64,${response}`
+        this.resizeImage(this.base64Src, 130, 50).then((result) => {
+            this.base64Src = result;
         });
     })
   },
   computed: {
+    photoAdded: function() {
+        return this.uploadedImage != null;
+    },
+
     brightStyle: function() {
         if(this.bright) {
             return 'background-color: #FFF;'
@@ -198,6 +242,21 @@ export default {
     },
   },
   methods: {
+    async processImage() {
+        if(this.uploadedImage != null){
+            let response = await this.fileToBase64(this.uploadedImage)
+            this.base64InputedPhoto = `data:image/png;base64,${response}`
+            this.resizeImage(this.base64InputedPhoto, 96, 96).then((result) => {
+                this.base64InputedPhoto = result;
+            });
+        }
+    },
+    insertImage() {
+        this.$refs.fileInput.$refs.input.click()
+    },
+    removeImage() {
+        this.uploadedImage = null;
+    },
     fileToBase64(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -214,13 +273,16 @@ export default {
             reader.readAsDataURL(file);
         });
     },
+
     changeBright(){
         this.bright = !this.bright
     },
+
     doCopyForThunderBird(id) {
         let element = document.getElementById(id).innerHTML
         navigator.clipboard.writeText(element)
     },
+
     doCopyForOutlook(id, tableId) {
         let table = document.getElementById(tableId)
         table.style = ""
@@ -247,10 +309,9 @@ export default {
         setTimeout(() => { 
             document.execCommand('copy');
             table.style = this.centerTableStyle;
-        }, 500);
-    
+        }, 30);
     },
-    resizeImage(base64Str, maxWidth = 400, maxHeight = 350) {
+    resizeImage(base64Str, maxWidth = 400, maxHeight = 400) {
         return new Promise((resolve) => {
             let img = new Image()
             img.src = base64Str
@@ -285,8 +346,12 @@ export default {
 </script>
 <style scoped>
     .formArea{
-        background-color: #313131;
-        box-shadow: 3px 3px 2px rgb(54, 54, 54);
+        background-color: #FFF;
+        border-radius: 25px;
+    }
+
+    .photoButton{
+        border-radius: 25px;
     }
     
 </style>

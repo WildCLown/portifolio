@@ -12,7 +12,9 @@ export default new Vuetify({
         secondary: '#e9c227',
         blackText: '#212121',
         primaryText: '#06afab',
-        textBoard: '#222'
+        textBoard: '#222',
+        signaturePrimary: "#1C6586",
+        signaturePrimaryText: "#181C1F"
       },
     },
   },
