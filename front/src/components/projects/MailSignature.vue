@@ -176,7 +176,6 @@
 </template>
 
 <script>
-import pepeGod from "@/assets/projectsImg/pepe-god.jpg"
 import companySignature from "@/assets/projectsImg/mailSignature/signature.png"
 import pepeImage from "@/assets/projectsImg/pepe85.png"
 
@@ -190,7 +189,6 @@ export default {
         team: "Standalone",
         phoneNumber: "+1 67 899-8212",
         communicationTool: "+55 11 4002-8922",
-        pepeGod: pepeGod,
         companyBanner: companySignature,
         pepeImage: pepeImage,
         uploadedImage: null,
@@ -242,7 +240,7 @@ export default {
         if(this.uploadedImage != null){
             let response = await this.fileToBase64(this.uploadedImage)
             this.base64InputedPhoto = `data:image/png;base64,${response}`
-            this.resizeImage(this.base64InputedPhoto, 96, 96).then((result) => {
+            this.resizeAndCropImageToCircle(this.base64InputedPhoto, 96, 96).then((result) => {
                 this.base64InputedPhoto = result;
             });
         }
@@ -336,6 +334,55 @@ export default {
             resolve(canvas.toDataURL())
             }
         })
+    },
+    resizeAndCropImageToCircle(base64Str, maxWidth = 400, maxHeight = 400) {
+        return new Promise((resolve) => {
+            let img = new Image();
+            img.src = base64Str;
+            img.onload = () => {
+                let canvas = document.createElement('canvas');
+                const MAX_WIDTH = maxWidth;
+                const MAX_HEIGHT = maxHeight;
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                let ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                // Create a circular canvas
+                let circularCanvas = document.createElement('canvas');
+                let size = Math.min(width, height);
+                circularCanvas.width = size;
+                circularCanvas.height = size;
+                let circularCtx = circularCanvas.getContext('2d');
+
+                // Draw the circular clipping mask
+                circularCtx.beginPath();
+                circularCtx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+                circularCtx.clip();
+
+                // Draw the resized image into the circular canvas
+                let startX = (width - size) / 2;
+                let startY = (height - size) / 2;
+                circularCtx.drawImage(canvas, startX, startY, size, size, 0, 0, size, size);
+
+                resolve(circularCanvas.toDataURL());
+            };
+        });
     }
   }
 };
