@@ -3,11 +3,7 @@
         row wrap
         justify-center
         align-center
-        :style="{ 
-            backgroundImage: 'url('+pepeGod+')',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: '100%',
-        }"
+        class="backgroundGradient"
         px-6
         py-15
     >
@@ -352,6 +348,11 @@ export default {
 
     .photoButton{
         border-radius: 25px;
+    }
+
+    .backgroundGradient{
+        background: rgb(32,19,242);
+        background: linear-gradient(90deg, rgba(32,19,242,1) 0%, rgba(193,193,212,1) 0%, rgba(169,169,207,1) 9%, rgba(11,11,102,1) 37%, rgba(2,23,45,1) 77%, rgba(0,0,0,1) 100%);
     }
     
 </style>
