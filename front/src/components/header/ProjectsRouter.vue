@@ -1,10 +1,6 @@
 <template>
   <div class="text-center">
-    <v-menu 
-      offset-y
-      :offset-x="!$vuetify.breakpoint.lgAndUp"
-      :left="!$vuetify.breakpoint.lgAndUp"
-    >
+    <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           block
@@ -14,7 +10,6 @@
           v-bind="attrs"
           v-on="on"
           :class=projecClassProps
-          class="font-weight-bold"
         >
           Projects
         </v-btn>
@@ -50,7 +45,7 @@
         },
         { 
           title: 'Mail Signature', 
-          desktopOnly: true 
+          desktopOnly: false 
         },
       ],
     }),
@@ -66,7 +61,8 @@
       projecClassProps: function() {
         let propClass = ['primaryText--text','font-weight-light']
         if(this.$vuetify.breakpoint.lgAndUp){
-          propClass.push('text-h6')
+          propClass.push('text-h6 font-weight-bold') 
+          
         }
         return propClass.join(' ')
       },
