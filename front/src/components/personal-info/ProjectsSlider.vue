@@ -89,6 +89,8 @@
   import stoolitLogo from "@/assets/projectsImg/Stoolit.png"
   import bezierCurves from "@/assets/projectsImg/bezierCurves.png"
   import ribbitCapital from "@/assets/projectsImg/ribbit.png"
+  import accessLoans from "@/assets/projectsImg/projectSlider/accessLoansIcon.png"
+  import acqioIcon from "@/assets/projectsImg/projectSlider/acqio.svg"
   export default {
     name: "ProjectsSlider",
     
@@ -156,6 +158,44 @@
             imgSide: {
               backgroundColor: 'white',
               imageSrc: ribbitCapital
+            }
+          },
+          {
+            projectName: 'Access Loans Make a Payment',
+            textSide: {
+              backgroundColor: '#2F549E',
+              textColor: "#E0E0E0",
+              message: [
+                "Design and created Access Loans Backend system to receive and",
+                "process payments for ACH transactions, the system would receive",
+                "internal payment requests, create ACH Paymment data which would be",
+                "inserted in a queue to be processed by a third party system.",
+              ].join(" "),
+              projectHosted: "Access Loans customer loan details",
+              buttonGoTo: null
+            },
+            imgSide: {
+              backgroundColor: '#B2EBF2',
+              imageSrc: accessLoans
+            }
+          },
+          {
+            projectName: 'Acqio Franchisee portal',
+            textSide: {
+              backgroundColor: '#333333',
+              textColor: "#D3D3D3",
+              message: [
+                "Along with Pricing team, developed routes that would aggregate data",
+                "and return time sensitive data in order to allow franchisee to",
+                "keep up with their lojits sales, and also to allow them to",
+                "know their commission and receives for given payment plans"
+              ].join(" "),
+              projectHosted: "Acqio Franchisee portal",
+              buttonGoTo: null
+            },
+            imgSide: {
+              backgroundColor: '#D3D3D3',
+              imageSrc: acqioIcon
             }
           },
           {
