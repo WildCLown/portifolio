@@ -158,7 +158,7 @@
                         <v-flex xs10 lg8>
                             <v-btn
                                 block
-                                v-on:click="doCopyForOutlook('outputImg', 'tableTag')"
+                                v-on:click="copyTableAndReturnCenter('outputImg', 'tableTag')"
                                 color="signaturePrimary"
                                 class="photoButton"
                             >   
@@ -285,35 +285,6 @@ export default {
         let element = document.getElementById(id).innerHTML
         navigator.clipboard.writeText(element)
     },
-
-    doCopyForOutlook(id, tableId) {
-        let table = document.getElementById(tableId)
-        table.style = ""
-        let sel, range;
-        let el = document.getElementById(id); //get element id
-        if (window.getSelection && document.createRange) { //Browser compatibility
-        sel = window.getSelection();
-        if(sel.toString() == ''){ //no text selection
-            window.setTimeout(function(){
-                range = document.createRange(); //range object
-                range.selectNodeContents(el); //sets Range
-                sel.removeAllRanges(); //remove all ranges from selection
-                sel.addRange(range);//add Range to a Selection.
-            },1);
-        }
-        }else if (document.selection) { //older ie
-            sel = document.selection.createRange();
-            if(sel.text == ''){ //no text selection
-                range = document.body.createTextRange();//Creates TextRange object
-                range.moveToElementText(el);//sets Range
-                range.select(); //make selection.
-            }
-        }
-        setTimeout(() => { 
-            document.execCommand('copy');
-            table.style = this.centerTableStyle;
-        }, 30);
-    },
     resizeImage(base64Str, maxWidth = 400, maxHeight = 400) {
         return new Promise((resolve) => {
             let img = new Image()
@@ -344,6 +315,49 @@ export default {
             }
         })
     },
+		copyTableAndReturnCenter(elementId, tableId){
+			setTimeout(() => {
+						let table = document.getElementById(tableId)
+						table.style = "";
+            this.copyToClipboard(elementId);
+            table.style = this.centerTableStyle;
+        }, 30);
+		},
+		copyToClipboard(elementId) {
+				const blockLevelElements = new Set(['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'OL', 'UL', 'DIV', 'HR', 'TABLE']);
+				const tempElement = document.createElement("div");
+				const element = document.getElementById(elementId);
+				tempElement.append(element.cloneNode(true));
+				tempElement.style.opacity = 0;
+				document.body.appendChild(tempElement);
+
+				const descendents = tempElement.querySelectorAll("*");
+
+				descendents.forEach((descendent) => {
+					const style = window.getComputedStyle(descendent);
+					const display = style.getPropertyValue("display");
+					const tagName = descendent.tagName;
+
+					if (display.includes("inline") && blockLevelElements.has(tagName)) {
+						const defaultCSS = window.getComputedStyle(descendent).cssText;
+						descendent.outerHTML = descendent.outerHTML.replace(
+							new RegExp(tagName, "ig"),
+							"span"
+						);
+						descendent.style.cssText = defaultCSS;
+					}
+				});
+
+				const selection = window.getSelection();
+				const range = document.createRange();
+				range.selectNodeContents(tempElement);
+				selection.removeAllRanges();
+				selection.addRange(range);
+
+				document.execCommand("copy");
+				selection.removeAllRanges();
+				document.body.removeChild(tempElement);
+		},
     resizeAndCropImageToCircle(base64Str, maxWidth = 400, maxHeight = 400) {
         return new Promise((resolve) => {
             let img = new Image();
