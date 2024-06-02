@@ -6,10 +6,17 @@
         class="backgroundGradient"
         px-6
         py-15
-    >
+    >   
+				<v-flex xs12 d-block>
+					<v-img
+						style="margin: auto;"
+						src="@/assets/projectsImg/mailSignature/logoAcqio.png"
+						width="120px"
+					/>
+				</v-flex>
         <v-flex xs12 lg5 class="formArea">
             <v-layout row wrap px-3>
-                <v-flex xs12 py-3 class="signaturePrimaryText--text text-h6 font-weight-dark">
+                <v-flex xs12 pt-4 px-4 class="signaturePrimaryText--text text-h6 font-weight-dark font-size: 24px">
                     Gerar assinatura
                 </v-flex>
                 <v-flex xs6 py-6>
@@ -98,7 +105,8 @@
                     id="outputImg"
                     ref="outputImg"
                     xs12
-                    pa-3
+                    my-3
+										mx-10
                     :style="brightStyle"
                 >
                     <table id="tableTag" :style="centerTableStyle">
@@ -117,7 +125,7 @@
                                 <img :src="base64Src">
                             </th>
                         </tr>
-                        <tr style="color: #0D517F; font-size: 24px; font-wieght: bold;">
+                        <tr style="color: #F5AE32; font-size: 24px; font-wieght: bold;">
                             <td colspan="2">
                                 {{name}}
                             </td>
@@ -176,21 +184,21 @@
 </template>
 
 <script>
-import companySignature from "@/assets/projectsImg/mailSignature/signature.png"
-import pepeImage from "@/assets/projectsImg/pepe85.png"
+import companySignature from "@/assets/projectsImg/mailSignature/logoAcqio.png"
+import baseImage from "@/assets/projectsImg/mailSignature/baseImage.jpg"
 
 export default {
   name: "MailSignature",
 
   data() {
     return {
-        name: "Batatoncio",
+        name: "Teixeirinha",
         ocupation: "Autonomous",
         team: "Standalone",
         phoneNumber: "+1 67 899-8212",
         communicationTool: "+55 11 4002-8922",
         companyBanner: companySignature,
-        pepeImage: pepeImage,
+        baseImage: baseImage,
         uploadedImage: null,
         base64Src: "",
         base64BasePhoto: "",
@@ -200,16 +208,17 @@ export default {
     };
   },
   mounted() {
-    fetch(pepeImage)
+    fetch(baseImage)
     .then(res => res.blob())
     .then(async blob => {
-        const file = new File([blob], 'pepeImage.png', blob)
+        const file = new File([blob], 'baseImage.png', blob)
         let response = await this.fileToBase64(file)
         this.base64BasePhoto = `data:image/png;base64,${response}`
-        this.resizeImage(this.base64BasePhoto, 96, 96).then((result) => {
+        this.resizeAndCropImageToCircle(this.base64BasePhoto, 96, 96).then((result) => {
             this.base64BasePhoto = result;
         });
     })
+    
 
     fetch(companySignature)
     .then(res => res.blob())
@@ -391,6 +400,7 @@ export default {
     .formArea{
         background-color: #FFF;
         border-radius: 25px;
+				border: 2px solid #C0C7CD;
     }
 
     .photoButton{
@@ -398,8 +408,8 @@ export default {
     }
 
     .backgroundGradient{
-        background: rgb(32,19,242);
-        background: linear-gradient(90deg, rgba(32,19,242,1) 0%, rgba(193,193,212,1) 0%, rgba(169,169,207,1) 9%, rgba(11,11,102,1) 37%, rgba(2,23,45,1) 77%, rgba(0,0,0,1) 100%);
+        background: rgb(254,252,231);
+        background: linear-gradient(90deg, rgba(254,252,231,1) 0%, rgba(215,238,235,1) 80%, rgba(215,214,228,1) 100%);
     }
     
 </style>
