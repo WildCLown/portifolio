@@ -9,7 +9,7 @@
     >
         <v-flex xs12 lg5 class="formArea">
             <v-layout row wrap px-3>
-                <v-flex xs12 py-3 class="signaturePrimaryText--text text-h6 font-weight-dark">
+                <v-flex xs12 py-3 class="signaturePrimaryText--text text-h6 font-weight-dark font-size: 24px">
                     Gerar assinatura
                 </v-flex>
                 <v-flex xs6 py-6>
@@ -150,12 +150,14 @@
                         <v-flex xs10 lg8>
                             <v-btn
                                 block
-                                v-on:click="doCopyForOutlook('outputImg', 'tableTag')"
+                                v-on:click="copyTableAndReturnCenter('outputImg', 'tableTag')"
                                 color="signaturePrimary"
                                 class="photoButton"
+																:light="isSmallScreen"
+																:disabled="isSmallScreen"
                             >   
                                 <v-icon>mdi-content-copy</v-icon>
-                                Copiar para Outlook
+                                {{copyButtonText}}
                             </v-btn>
                         </v-flex>
                     </v-layout>
@@ -177,7 +179,7 @@
 
 <script>
 import companySignature from "@/assets/projectsImg/mailSignature/signature.png"
-import pepeImage from "@/assets/projectsImg/pepe85.png"
+import baseImage from "@/assets/projectsImg/pepe85.png"
 
 export default {
   name: "MailSignature",
@@ -190,7 +192,7 @@ export default {
         phoneNumber: "+1 67 899-8212",
         communicationTool: "+55 11 4002-8922",
         companyBanner: companySignature,
-        pepeImage: pepeImage,
+        baseImage: baseImage,
         uploadedImage: null,
         base64Src: "",
         base64BasePhoto: "",
@@ -200,13 +202,13 @@ export default {
     };
   },
   mounted() {
-    fetch(pepeImage)
+    fetch(baseImage)
     .then(res => res.blob())
     .then(async blob => {
-        const file = new File([blob], 'pepeImage.png', blob)
+        const file = new File([blob], 'baseImage.png', blob)
         let response = await this.fileToBase64(file)
         this.base64BasePhoto = `data:image/png;base64,${response}`
-        this.resizeImage(this.base64BasePhoto, 96, 96).then((result) => {
+        this.resizeAndCropImageToCircle(this.base64BasePhoto, 96, 96).then((result) => {
             this.base64BasePhoto = result;
         });
     })
@@ -223,6 +225,12 @@ export default {
     })
   },
   computed: {
+		isSmallScreen() {
+			return !this.$vuetify.breakpoint.lgAndUp
+		},
+		copyButtonText() {
+			return this.isSmallScreen ? 'Mobile preview only' : 'Copiar para Outlook'
+		},
     photoAdded: function() {
         return this.uploadedImage != null;
     },
@@ -240,7 +248,7 @@ export default {
         if(this.uploadedImage != null){
             let response = await this.fileToBase64(this.uploadedImage)
             this.base64InputedPhoto = `data:image/png;base64,${response}`
-            this.resizeAndCropImageToCircle(this.base64InputedPhoto, 96, 96).then((result) => {
+            this.resizeAndCropImageToCircle(this.base64InputedPhoto, 96).then((result) => {
                 this.base64InputedPhoto = result;
             });
         }
@@ -335,55 +343,57 @@ export default {
             }
         })
     },
-    resizeAndCropImageToCircle(base64Str, maxWidth = 400, maxHeight = 400) {
-        return new Promise((resolve) => {
-            let img = new Image();
-            img.src = base64Str;
-            img.onload = () => {
-                let canvas = document.createElement('canvas');
-                const MAX_WIDTH = maxWidth;
-                const MAX_HEIGHT = maxHeight;
-                let width = img.width;
-                let height = img.height;
+    resizeAndCropImageToCircle(base64Str, maxSize = 400) {
+			return new Promise((resolve) => {
+					let img = new Image();
+					img.src = base64Str;
+					img.onload = () => {
+							// Set the max size to the given parameter
+							const MAX_SIZE = maxSize;
 
-                if (width > height) {
-                    if (width > MAX_WIDTH) {
-                        height *= MAX_WIDTH / width;
-                        width = MAX_WIDTH;
-                    }
-                } else {
-                    if (height > MAX_HEIGHT) {
-                        width *= MAX_HEIGHT / height;
-                        height = MAX_HEIGHT;
-                    }
-                }
+							let width = img.width;
+							let height = img.height;
 
-                canvas.width = width;
-                canvas.height = height;
-                let ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height);
+							// Calculate the new size to maintain aspect ratio and fit within the MAX_SIZE boundaries
+							if (width > height) {
+									height = (MAX_SIZE / width) * height;
+									width = MAX_SIZE;
+							} else {
+									width = (MAX_SIZE / height) * width;
+									height = MAX_SIZE;
+							}
 
-                // Create a circular canvas
-                let circularCanvas = document.createElement('canvas');
-                let size = Math.min(width, height);
-                circularCanvas.width = size;
-                circularCanvas.height = size;
-                let circularCtx = circularCanvas.getContext('2d');
+							// Ensure the dimensions are square
+							let newSize = Math.min(width, height);
+							width = newSize;
+							height = newSize;
 
-                // Draw the circular clipping mask
-                circularCtx.beginPath();
-                circularCtx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
-                circularCtx.clip();
+							let canvas = document.createElement('canvas');
+							canvas.width = width;
+							canvas.height = height;
+							let ctx = canvas.getContext('2d');
+							ctx.drawImage(img, 0, 0, width, height);
 
-                // Draw the resized image into the circular canvas
-                let startX = (width - size) / 2;
-                let startY = (height - size) / 2;
-                circularCtx.drawImage(canvas, startX, startY, size, size, 0, 0, size, size);
+							// Create a circular canvas
+							let circularCanvas = document.createElement('canvas');
+							circularCanvas.width = newSize;
+							circularCanvas.height = newSize;
+							let circularCtx = circularCanvas.getContext('2d');
 
-                resolve(circularCanvas.toDataURL());
-            };
-        });
-    }
+							// Draw the circular clipping mask
+							circularCtx.beginPath();
+							circularCtx.arc(newSize / 2, newSize / 2, newSize / 2, 0, Math.PI * 2);
+							circularCtx.clip();
+
+							// Draw the resized image into the circular canvas
+							let startX = (canvas.width - newSize) / 2;
+							let startY = (canvas.height - newSize) / 2;
+							circularCtx.drawImage(canvas, startX, startY, newSize, newSize, 0, 0, newSize, newSize);
+
+							resolve(circularCanvas.toDataURL());
+					};
+			});
+		}
   }
 };
 </script>
@@ -391,6 +401,7 @@ export default {
     .formArea{
         background-color: #FFF;
         border-radius: 25px;
+				border: 2px solid #C0C7CD;
     }
 
     .photoButton{
