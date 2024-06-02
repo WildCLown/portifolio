@@ -122,7 +122,7 @@
                 block 
                 class="primaryText--text font-weight-light"
                 color="primary" 
-                large 
+                large
                 v-on:click="toBottom"
               >
                 Contact me

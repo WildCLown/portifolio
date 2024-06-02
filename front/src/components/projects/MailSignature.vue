@@ -161,9 +161,11 @@
                                 v-on:click="copyTableAndReturnCenter('outputImg', 'tableTag')"
                                 color="signaturePrimary"
                                 class="photoButton"
+																:light="isSmallScreen"
+																:disabled="isSmallScreen"
                             >   
                                 <v-icon>mdi-content-copy</v-icon>
-                                Copiar para Outlook
+                                {{copyButtonText}}
                             </v-btn>
                         </v-flex>
                     </v-layout>
@@ -232,10 +234,15 @@ export default {
     })
   },
   computed: {
+		isSmallScreen() {
+			return !this.$vuetify.breakpoint.lgAndUp
+		},
+		copyButtonText() {
+			return this.isSmallScreen ? 'Mobile only previews' : 'Copiar para Outlook'
+		},
     photoAdded: function() {
         return this.uploadedImage != null;
     },
-
     brightStyle: function() {
         if(this.bright) {
             return 'background-color: #FFF;'

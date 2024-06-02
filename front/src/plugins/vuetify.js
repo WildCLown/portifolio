@@ -16,6 +16,10 @@ export default new Vuetify({
         signaturePrimary: "#04A8A8",
         signaturePrimaryText: "#181C1F"
       },
+      light: {
+        signaturePrimary: "#04A8A8",
+        signaturePrimaryText: "#181C1F"
+      }
     },
   },
 });
