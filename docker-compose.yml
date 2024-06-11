@@ -4,7 +4,9 @@ services:
     build: ./front
     container_name: Frontend-Portifolio-Docker-Gabriel-Teixeira
     ports:
-     - "8080:8080"
+     - '3000:3000'
+    environment:
+      - NODE_ENV=dev
     volumes:
       - ./front:/usr/src/app
-    command: bash -c 'yarn && yarn serve'
+    command: bash -c 'yarn && yarn dev --host'
