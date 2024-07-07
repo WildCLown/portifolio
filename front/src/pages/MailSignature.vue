@@ -1,5 +1,5 @@
 <template>
-  <personal-info/>
+  Pow pow mail signature
 </template>
 
 <script lang="ts" setup>
