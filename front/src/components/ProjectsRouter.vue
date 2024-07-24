@@ -24,7 +24,7 @@
             class="clickable primaryText--text font-weight-bold"
             size="x-large"
             @click="setProject(item.projectPage)"
-            :disabled="isDesktopRendered(item.desktopOnly)"
+            :disabled="isMobileDisabled(item.desktopOnly)"
           >
             {{ item.title }}
           </v-btn>
@@ -41,7 +41,7 @@ export default {
       items: [
         { 
           title: 'Bezier Curve',
-          projectPage: 'bezier-curve',
+          projectPage: 'BezierCurve',
           desktopOnly: true
         },
         { 
@@ -61,8 +61,11 @@ export default {
     setProject(project) {
       window.location.href = `/${project}`;
     },
-    isDesktopRendered(projectRendered){
-      return !this.$vuetify.display.mobile && projectRendered
+    isMobileDisabled(projectRendered){
+      if(this.$vuetify.display.mobile){
+        return projectRendered
+      }
+      return false
     }
   },
 };

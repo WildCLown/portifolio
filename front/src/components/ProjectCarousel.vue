@@ -5,23 +5,35 @@
       :key="i"
       cover
     >
-      <v-row justify-center>
+      <v-row justify-center no-gutters class="font-weight-bold">
         <v-col 
           cols="12"
-          class="d-flex justify-center bg-primary"
+          class="bg-primary py-3"
         >
-          {{project.projectName}}
+          <p class="text-center">
+            {{project.projectName}}
+          </p>
         </v-col>
         <v-col
           v-if="mdAndUp"
-          :style="{backgroundColor: project.imgSide.backgroundColor}"
+          :style="{backgroundColor: project.imgSide.backgroundColor, height: cardHeight}"
+          class="d-flex justify-center pa-16"
         >
           <v-img
           :src="project.imgSide.imageSrc">
           </v-img>
         </v-col>
-        <v-col :cols="mdAndUp ? 6 : 12">
-            POWW
+        <v-col 
+          :cols="mdAndUp ? 6 : 12"
+          :style="{
+            height: cardHeight,
+            color: project.textSide.textColor,
+            background: project.textSide.backgroundColor
+          }"
+          class="d-flex justify-center pa-16 text-h5"
+
+        >
+            {{project.textSide.message}}
         </v-col>
       </v-row>
     </v-carousel-item>
@@ -42,6 +54,7 @@
   export default {
     data () {
       return {
+        cardHeight: "500px",
         projects: [
           {
             projectName: 'Stoolit',
