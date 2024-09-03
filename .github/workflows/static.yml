@@ -60,7 +60,7 @@ jobs:
           ref: served-page
           token: ${{secrets.PAT}}
       - name: Download Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: PortifolioPageArtifact
       - name: Unpack Static Files
