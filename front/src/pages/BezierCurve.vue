@@ -39,7 +39,7 @@
       <v-row
         no-gutters
         class="justify-start "
-        :style="{backgroundColor: 'grey', border: '3px solid #000000'}"
+        :style="{backgroundColor: '#0B0434', border: '3px solid #000000'}"
       >
         <v-col cols="12">
           <v-checkbox 
@@ -65,7 +65,13 @@
             This project was initially made in pure HTML, then was updated to Vue with Vuetify 2
           </p>
           <p>
-            and later to Vite with Vuetify 3.
+            and later to Vite with Vuetify 3, which stopped working features like moving anchor dots.
+          </p>
+          <p>
+            Moving anchor dots will not be implemented anymore.
+          </p>
+          <p>
+            Original source is Lion's private repository.
           </p>
         </v-col>
       </v-row>
@@ -82,22 +88,22 @@
     <v-row class="px-16 text-center">
       <v-col cols="3">
         <v-btn color="primary" v-on:click="CdoPoint()" id = "criar">
-            New Curve
+          New Curve
         </v-btn>
       </v-col>
       <v-col cols="3">
         <v-btn color="primary" v-on:click="DeleteCurve()">
-            Bang!
+          Remove Colored Curve!
         </v-btn>
       </v-col>
       <v-col cols="3">
         <v-btn color="primary" v-on:click="nextCurve()">
-            Previous Curve
+          Previous Curve
         </v-btn>
       </v-col>
       <v-col cols="3">
         <v-btn color="primary" v-on:click="lastCurve()">
-            Next Curve
+          Next Curve
         </v-btn>
       </v-col>
     </v-row>

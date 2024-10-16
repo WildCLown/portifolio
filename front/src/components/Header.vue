@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     toResume() {
-      window.open(`https://drive.google.com/file/d/1c1ICK6_TvqwG0s8UEqJkQ_m1gCvHUjT4/view?usp=sharing`, '_blank');
+      window.open(`https://drive.google.com/file/d/1fIuuBx19tzcLeH4ay-YfF4RYiutltRTB/view?usp=sharing`, '_blank');
     },
     toHome() {
       window.location.href = './';

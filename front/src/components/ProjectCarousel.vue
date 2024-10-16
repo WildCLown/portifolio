@@ -1,43 +1,76 @@
 <template>
-  <v-carousel hide-delimiters>
-    <v-carousel-item
-      v-for="(project,i) in projects"
-      :key="i"
-      cover
-    >
-      <v-row justify-center no-gutters class="font-weight-bold">
-        <v-col 
-          cols="12"
-          class="bg-primary py-3"
+  <v-row justify-center no-gutters>
+    <v-col cols="12">
+      <v-carousel 
+        hide-delimiters
+        dark
+        prev-icon="mdi-arrow-left"
+        next-icon="mdi-arrow-right"
+        height="auto"
+        class="testRound"
+      >
+        <v-carousel-item
+          v-for="(project,i) in projects"
+          :key="i"
+          cover
         >
-          <p class="text-center">
-            {{project.projectName}}
-          </p>
-        </v-col>
-        <v-col
-          v-if="mdAndUp"
-          :style="{backgroundColor: project.imgSide.backgroundColor, height: cardHeight}"
-          class="d-flex justify-center pa-16"
-        >
-          <v-img
-          :src="project.imgSide.imageSrc">
-          </v-img>
-        </v-col>
-        <v-col 
-          :cols="mdAndUp ? 6 : 12"
-          :style="{
-            height: cardHeight,
-            color: project.textSide.textColor,
-            background: project.textSide.backgroundColor
-          }"
-          class="d-flex justify-center pa-16 text-h5"
+          <v-row 
+            justify-center 
+            no-gutters 
+            :class="cardSize.textSize"
+            class="font-weight-bold"
+            rounded-lg
+          >
+            <v-col
+              cols="12"
+              class="bg-primary py-3"
+            >
+              <p class="text-center">
+                {{project.projectName}}
+              </p>
+            </v-col>
+            <v-col
+              v-if="mdAndUp"
+              :style="{backgroundColor: project.imgSide.backgroundColor, height: cardHeight}"
+              class="d-flex justify-center pa-16"
+            >
+              <v-img
+              :src="project.imgSide.imageSrc">
+              </v-img>
+            </v-col>
+            <v-col
+              :cols="mdAndUp ? 6 : 12"
+              :style="{
+                height: cardHeight,
+                color: project.textSide.textColor,
+                background: project.textSide.backgroundColor
+              }"
+              class="d-flex justify-center pa-16 text-h5"
 
-        >
-            {{project.textSide.message}}
-        </v-col>
-      </v-row>
-    </v-carousel-item>
-  </v-carousel>
+            >
+              <v-row>
+                <v-col cols="12">
+                  <p>
+                    {{project.textSide.message}}
+                  </p>
+                </v-col>
+                <v-col cols="12" class="d-flex justify-center" v-if="project.textSide.buttonGoTo != null">
+                  <v-btn
+                    color="primary"
+                    class="primaryText--text text-h6 font-weight-bold"
+                    target="_blank"
+                    v-bind:href="project.textSide.buttonGoTo"
+                  >
+                    Check Project
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-carousel-item>
+      </v-carousel>
+    </v-col>
+  </v-row>
 </template>
 <script setup>
   import { useDisplay } from 'vuetify'
@@ -87,8 +120,8 @@
                 "therefore payment reversals.",
                 "In this project was able to prove leadership skills",
                 "and end to end architecture development using Kotlin.",
-                "This project enabled a increase of transactions by over",
-                "R$ 670000.00 per month in Acqio's operation."
+                "This project reduced transactions reversal by over",
+                "50% in our first customers."
               ].join(" "),
               projectHosted: "Acqio's Internal system",
               buttonGoTo: null
@@ -105,17 +138,17 @@
               textColor: "#000000",
               message: [
                 "Now called Validifi, Ribbit integration was Access Loans project",
-                "that by receiving client personal information and concent,",
+                "that by receiving client personal information and concent through open banking funcionality,",
                 "would verify data sent, collecting bank cashflow in order",
-                "to analyse if the new user requesting loan is or not a good payer",
-                "This project reduced operation costs by more than U$ 100000.00",
+                "to analyse if the onboarding user requesting loan is or not a good payer",
+                "This project reduced in about 25% requests cost",
                 "for SNBNY operations."
               ].join(" "),
               projectHosted: "Access Loans customer onboarding flow",
               buttonGoTo: null
             },
             imgSide: {
-              backgroundColor: 'white',
+              backgroundColor: '#FFFFFF',
               imageSrc: ribbitCapital
             }
           },
@@ -182,7 +215,19 @@
     computed: {
       isMobile() {
         return true;
+      },
+      cardSize: {
+        get: function() {
+          return { 
+            textSize: !this.$vuetify.display.mobile? 'text-h6' : 'subtitle-1'
+          }
+        }
       }
     }
   }
 </script>
+<style scoped>
+  .testRound {
+    border-radius: 8px;;
+  }
+</style>
